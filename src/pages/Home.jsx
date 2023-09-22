@@ -8,8 +8,8 @@ import Hero from '../components/Hero'
 
 const Home = () => {
   return (
-    <div classname='min-h-screen w-full'>
-      <div classname='h-screen w-full'>
+    <div className='min-h-screen w-full'>
+      <div className='h-screen w-full'>
         <Navbar />
         <Hero />
       </div>

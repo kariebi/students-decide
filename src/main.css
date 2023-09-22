@@ -1,3 +1,31 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.form-inp {
+    padding: 11px 25px;
+    border: 1px solid #e3e3e3;
+    line-height: 1;
+    border-radius: 8px;
+}
+
+.form-inp:focus {
+    border: 1px solid #00FF7F;
+}
+
+.form-inp:first-child {
+    margin-bottom: 15px;
+}
+
+.form-inp input {
+    width: 100%;
+    font-size: 13.4px;
+    color: #00FF7F;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-inp input:focus {
+    outline: none;
+}

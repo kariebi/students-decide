@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <div>Hero</div>
+    <div className='flex flex-grow w-full'>Hero</div>
   )
 }
 
