@@ -23,7 +23,7 @@ const SignIn = () => {
 
   return (
     <div className='w-full h-screen bg-[#163a16]  flex justify-center items-center'>
-      <section className='bg-black/60 rounded-3xl max-w-[300px] w-[95%] h-[400px] p-5 '>
+      <section className='bg-black/70 rounded-3xl max-w-[300px] w-[95%] h-[400px] p-5 '>
         <div className="">
           <form className="form">
             <div className=" relative right-0 left-0  w-[230px] mx-auto">
@@ -32,7 +32,7 @@ const SignIn = () => {
                 <div className="welcome-line-2 text-white text-lg mt-3">Welcome Back</div>
               </div>
               <div className="input-area mt-10 space-y-5">
-                <div className="form-inp bg-black/60">
+                <div className="form-inp bg-black/70">
                   <input
                     placeholder="Registration Number"
                     type="text"
@@ -40,7 +40,7 @@ const SignIn = () => {
                     onChange={(e) => setRegistrationNumber(e.target.value)}
                     className="uppercase placeholder:normal-case px-5 py-3 bg-transparent border border-gray-300 w-full focus:border-green-500 outline-none" />
                 </div>
-                <div className="form-inp flex justify-between bg-black/60">
+                <div className="form-inp flex justify-between bg-black/70">
                   <input
                     placeholder="Password"
                     type={PasswordVisible ? "text" : "password"}
