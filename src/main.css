@@ -3,8 +3,8 @@
 @import 'tailwindcss/utilities';
 
 .form-inp {
-    padding: 11px 25px;
-    border: 1px solid #e3e3e3;
+    padding: 11px ;
+    /* border: 1px solid #e3e3e3; */
     line-height: 1;
     border-radius: 8px;
 }

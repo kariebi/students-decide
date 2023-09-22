@@ -4,6 +4,7 @@ import DashLayout from './Layouts/DashLayout';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn'
 import UserDashboard from './pages/UserDashboard'
+import Missing from './pages/Missing';
 
 
 import './main.css';
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<PrimaryLayout />}>
           <Route index element={<Home />} />
+          <Route path='*' element={<Missing/>}/>
           <Route path='signin' element={<SignIn />} />
           <Route path="dash" element={<DashLayout />}>
           <Route path='userdahsboard' element={<UserDashboard/>}/>
