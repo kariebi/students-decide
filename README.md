@@ -2,7 +2,7 @@
 
 Welcome to **UniE-Voting**, your university's advanced and user-friendly E-Voting platform! This platform is designed to empower students and streamline the voting process for various university-related activities, including departmental representatives, student union government elections, and other important decision-making events.
 
-![UniE-Voting Banner](link-to-our-banner-image)
+<!-- ![UniE-Voting Banner](link-to-our-banner-image) -->
 
 ## Features
 
