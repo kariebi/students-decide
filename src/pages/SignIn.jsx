@@ -15,6 +15,10 @@ const SignIn = () => {
     setPasswordVisibility(!PasswordVisible)
   }
 
+  const AttemptLogin = async () => {
+
+  }
+
   useEffect(() => {
     setRegistrationNumberFilled(RegistrationNumber !== '');
     setpasswordFilled(Password !== '');
@@ -22,7 +26,7 @@ const SignIn = () => {
   }, [RegistrationNumber, Password]);
 
   return (
-    <div className='w-full h-screen bg-[#163a16]  flex justify-center items-center'>
+    <div className='w-full h-screen bg-BaseBackground  flex justify-center items-center'>
       <section className='bg-black/70 rounded-3xl max-w-[300px] w-[95%] h-[400px] p-5 '>
         <div className="">
           <form className="form">
@@ -58,6 +62,7 @@ const SignIn = () => {
               <div className="submit-button-cvr mt-5">
                 <button
                   disabled={!FormFilled}
+                  onSubmit={AttemptLogin}
                   type="submit"
                   className={`submit-button w-full px-4 py-3 submit-button font-semibold rounded-lg text-lg transition-all ease-in-out duration-300
                   ${FormFilled ? 'text-green-500 bg-black/60 border border-green-500 hover:bg-green-500 hover:text-black hover:cursor-pointer ' : 'text-gray-500  outline outline-[1px] outline-gray-500 cursor-not-allowed'}`}
