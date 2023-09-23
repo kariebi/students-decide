@@ -5,12 +5,12 @@ export const authapiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         login: builder.mutation({
             query: credentials => ({
-                url: '/account/auth/login',
+                url: '/account/auth/login/',
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFTOKEN': 'nHioDo6oddwVXX91NAZGj3dDuQ1VeyeCuKw0NMRSUQZwl55ziGxh5r9fQuqBGLdw',
-                },
+                // headers: {
+                //     'Content-Type': 'application/json',
+                //     'X-CSRFTOKEN': 'nHioDo6oddwVXX91NAZGj3dDuQ1VeyeCuKw0NMRSUQZwl55ziGxh5r9fQuqBGLdw',
+                // },
                 body: { ...credentials }
             }),
             // async onQueryStarted(arg, { dispatch, queryFulfilled, rejectWithValue }) {
@@ -26,7 +26,7 @@ export const authapiSlice = apiSlice.injectEndpoints({
         }),
         sendLogout: builder.mutation({
             query: () => ({
-                url: '/account/auth/logout',
+                url: '/account/auth/logout/',
                 method: 'POST',
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -44,7 +44,7 @@ export const authapiSlice = apiSlice.injectEndpoints({
         }),
         refresh: builder.mutation({
             query: () => ({
-                url: '/auth/refresh',
+                url: '/auth/refresh/',
                 method: 'GET',
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
