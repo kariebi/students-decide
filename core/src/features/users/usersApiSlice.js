@@ -8,7 +8,7 @@ const usersAdapter = createEntityAdapter({})
 
 const initialState = usersAdapter.getInitialState()
 
-export const usersApiSlice = apiSlice.injectEndpoints({
+export const usersapiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getUsers: builder.query({
             query: () => ({
@@ -75,10 +75,10 @@ export const {
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,
-} = usersApiSlice
+} = usersapiSlice
 
 // returns the query result object
-export const selectUsersResult = usersApiSlice.endpoints.getUsers.select()
+export const selectUsersResult = usersapiSlice.endpoints.getUsers.select()
 
 // creates memoized selector
 const selectUsersData = createSelector(

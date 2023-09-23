@@ -1,12 +1,12 @@
 import { store } from '../../app/store'
-import { usersApiSlice } from '../users/usersApiSlice';
+import { usersapiSlice } from '../users/usersapiSlice';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 const Prefetch = () => {
 
     useEffect(() => {
-        store.dispatch(usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true }))
+        store.dispatch(usersapiSlice.util.prefetch('getUsers', 'usersList', { force: true }))
     }, [])
 
     return <Outlet />

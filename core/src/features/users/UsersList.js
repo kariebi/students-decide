@@ -1,4 +1,4 @@
-import { useGetUsersQuery } from "./usersApiSlice"
+import { useGetUsersQuery } from "./usersapiSlice"
 import User from './User'
 import useTitle from "../../hooks/useTitle"
 import PulseLoader from 'react-spinners/PulseLoader'
