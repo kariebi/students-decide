@@ -33,31 +33,52 @@ const PasswordRecovery = () => {
   };
 
   return (
-    <div>
-      <h2>Password Recovery</h2>
-      <form onSubmit={handlePasswordRecovery}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-          {isEmailValid ? (
-            <span style={{ color: 'green' }}>Valid email address</span>
-          ) : (
-            <span style={{ color: 'red' }}>Invalid email address</span>
-          )}
-        </div>
-        <div>
-          <button type="submit" disabled={!isEmailValid || isLoading}>
-            {isLoading ? 'Sending...' : 'Send Password Recovery Email'}
-          </button>
-        </div>
-      </form>
+    <div className='w-full h-screen bg-BaseBackground text-white flex flex-col justify-center items-center'>
+      <section className='bg-black/70 rounded-3xl max-w-[300px] w-[95%] h-[280px] p-5 '>
+        <form onSubmit={handlePasswordRecovery}>
+          <div className='flex flex-col h-full'>
+            <div className="welcome-lines text-center leading-tight">
+              <div className="welcome-line-1 text-green-500 font-semibold text-4xl">UEV</div>
+              <div className="welcome-line-2 text-white text-lg mt-3 ">Password Recovery</div>
+            </div>
+            <div className='flex-grow h-[90px] mt-2 w-full'>
+              <label htmlFor="email"
+              className='text-sm ml-1'>Email:</label>
+              <div className="form-inp bg-black/70 w-full">
+                <input
+                  type="email"
+                  id="email"
+                  placeholder='somemail@mail.com'
+                  className="uppercase placeholder:normal-case px-5 py-3 bg-transparent border border-gray-300 w-full focus:border-green-500 outline-none"
+                  name="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  autoComplete="off"
+                  required
+                />
+              </div>
+              <div className='text-sm w-full text-center'>
+                {email && ( // Only show the message if email has some content
+                  isEmailValid ? (
+                    <span style={{ color: 'green' }}>Valid email address</span>
+                  ) : (
+                    <span style={{ color: 'red' }}>Input a valid email address</span>
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+          <div className=''>
+            <button
+              type="submit"
+              className={`submit-button w-full px-4 py-3 submit-button font-semibold rounded-lg text-sm transition-all ease-in-out duration-300 
+                  ${isEmailValid ? 'text-green-500 bg-black/60 border border-green-500 hover:bg-green-500 hover:text-black hover:cursor-pointer ' : 'text-gray-500  outline outline-[1px] outline-gray-500 cursor-not-allowed'}`}
+              disabled={!isEmailValid || isLoading}>
+              {isLoading ? 'Sending...' : 'Send Password Recovery Email'}
+            </button>
+          </div>
+        </form>
+      </section>
     </div>
   );
 };
