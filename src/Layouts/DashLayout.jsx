@@ -6,7 +6,7 @@ import DashFooter from '../components/DashFooter'
 
 const DashLayout = () => {
     return (
-        <div>
+        <div className='flex-grow flex flex-col w-full min-h-screen'>
             <DashNavbar />
             <Outlet />
             <DashFooter />

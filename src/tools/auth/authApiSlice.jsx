@@ -58,6 +58,23 @@ export const authapiSlice = apiSlice.injectEndpoints({
                 }
             }
         }),
+        passwordRecovery: builder.mutation({
+            query: (email) => ({
+                url: '/account/auth/password-recovery/', // Adjust the URL as needed
+                method: 'POST',
+                body: { email }, // Pass the email as the request body
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    console.log(data); // Handle the response from the server
+                    //  can dispatch actions or update component state here
+                } catch (err) {
+                    console.error(err);
+                    // Handle errors if needed
+                }
+            },
+        }),
     })
 })
 
@@ -65,4 +82,5 @@ export const {
     useLoginMutation,
     useSendLogoutMutation,
     useRefreshMutation,
+    usePasswordRecoveryMutation,
 } = authapiSlice 
