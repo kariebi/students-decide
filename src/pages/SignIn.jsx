@@ -23,7 +23,7 @@ const SignIn = () => {
   const [PasswordVisible, setPasswordVisibility] = useState(false)
   const [persist, setPersist] = usePersist()
   const userRef = useRef()
-  const errRef = useRef('hsfdgghsfg')
+  const errRef = useRef()
   const [errMsg, setErrMsg] = useState('')
 
   const navigate = useNavigate()
