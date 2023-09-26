@@ -40,8 +40,9 @@ const SignIn = () => {
   const AttemptLogin = async (e) => {
     e.preventDefault()
     try {
-      const response = await login({ RegistrationNumber, Password }).unwrap()
-      dispatch(setCredentials({ accessToken: response.accessToken }))
+      const response = await login({ 'reg_no':RegistrationNumber,'password': Password }).unwrap()
+      dispatch(setCredentials({ accessToken: response.token }))
+      console.log(response.token)
       setRegistrationNumber('') // Clear the fields
       setPassword('')
       setErrMsg('') // Clear any previous error messages
@@ -49,13 +50,13 @@ const SignIn = () => {
     } catch (err) {
       console.log(err)
       console.log(err.status)
-      if (!err.originalStatus) {
+      if (!err.status) {
         setErrMsg('No Server Response');
-      } else if (err.originalStatus === 400) {
+      } else if (err.status === 400) {
         setErrMsg('Missing Username or Password');
-      } else if (err.originalStatus === 401) {
+      } else if (err.status === 401) {
         setErrMsg('Unauthorized');
-      } else if (err.originalStatus == 500) {
+      } else if (err.status == 500) {
         setErrMsg('Server-Side Error');
         console.log('Server-Side Error')
       } else {
