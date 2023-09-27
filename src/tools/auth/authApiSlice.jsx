@@ -7,10 +7,6 @@ export const authapiSlice = apiSlice.injectEndpoints({
             query: credentials => ({
                 url: '/account/login/',
                 method: 'POST',
-                // headers: {
-                //     'Content-Type': 'application/json',
-                //     'X-CSRFTOKEN': 'nHioDo6oddwVXX91NAZGj3dDuQ1VeyeCuKw0NMRSUQZwl55ziGxh5r9fQuqBGLdw',
-                // },
                 body: { ...credentials }
             }),
             // async onQueryStarted(arg, { dispatch, queryFulfilled, rejectWithValue }) {

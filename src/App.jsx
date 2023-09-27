@@ -6,9 +6,11 @@ import SignIn from './pages/SignIn'
 import UserDashboard from './pages/UserDashboard'
 import PasswordRecovery from "./pages/PasswordRecovery";
 import Missing from './pages/Missing';
-
+import PersistLogin from '../src/tools/auth/PersistLogin'
 
 import './main.css';
+
+
 function App() {
 
   return (
@@ -18,9 +20,12 @@ function App() {
           <Route index element={<Home />} />
           <Route path='*' element={<Missing />} />
           <Route path='signin' element={<SignIn />} />
-          <Route path='passwordrecovery' element={<PasswordRecovery/>}/>
-          <Route path='userdashboard' element={<DashLayout />}>
-            <Route index element={<UserDashboard />} />
+          <Route path='passwordrecovery' element={<PasswordRecovery />} />
+          {/* Protected Routes */}
+          <Route element={<PersistLogin />}>
+            <Route path='userdashboard' element={<DashLayout />}>
+              <Route index element={<UserDashboard />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

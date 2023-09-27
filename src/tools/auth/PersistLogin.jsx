@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom"
 import { useEffect, useRef, useState } from 'react'
-import { useRefreshMutation } from "./authapiSlice"
+import { useRefreshMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from "./authSlice"
@@ -55,7 +55,7 @@ const PersistLogin = () => {
         content = <Outlet />
     } else if (isLoading) { //persist: yes, token: no
         console.log('loading')
-        content = <PulseLoader color={"#FFF"} />
+        content = <PulseLoader color={"#22C55E"} />
     } else if (isError) { //persist: yes, token: no
         console.log('error')
         content = (
