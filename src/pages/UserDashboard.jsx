@@ -19,7 +19,7 @@ const UserDashboard = () => {
       {/* Links */}
       <div className='pt-[160px] text-black'>
         <section className='mt-5 flex flex-row justify-center h-40 sm:h-60 w-full'>
-          <section className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-[#6AAD75] h-full'>
+          <Link className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-[#6AAD75] h-full'>
             <div className='w-full h-full p-3 flex flex-col'>
               <aside
                 className='bg-white py-2 px-2 w-fit rounded-xl'
@@ -34,8 +34,8 @@ const UserDashboard = () => {
                 Vote
               </p>
             </div>
-          </section>
-          <section className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-[#4D6D85] h-full'>
+          </Link>
+          <Link className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-[#4D6D85] h-full'>
             <div className='w-full h-full p-3 flex flex-col'>
               <aside
                 className='bg-white py-2 px-2 w-fit rounded-xl'
@@ -50,7 +50,7 @@ const UserDashboard = () => {
                 Candidates Information
               </p>
             </div>
-          </section>
+          </Link>
         </section>
       </div>
       {/* Top Candidates */}
@@ -68,9 +68,9 @@ const UserDashboard = () => {
           'This is where the candidate info will be mapped'
         </section>
       </div>
-      <div className='w-full h-10 flex justify-center items-center'>
+      <div className='w-full px-2 h-10 flex justify-center items-center'>
         <Link 
-        className='border border-primary w-full max-w-[240px] text-center px-9 py-1 rounded text-primary'
+        className='border border-primary w-full max-w-[350px] text-center px-9 py-1 rounded text-primary'
         >
           Monitor Election
         </Link>
