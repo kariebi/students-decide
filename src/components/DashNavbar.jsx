@@ -1,13 +1,17 @@
 import React from 'react';
 import useAuth from '../hooks/useAuth'
 
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClock } from "@fortawesome/free-solid-svg-icons"
 
+import LogoutButton from './LogoutButton';
+
+
 
 const DashNavbar = () => {
+
   const { registrationNumber } = useAuth()
+
   return (
     <div className='w-screen'>
       <div className='flex flex-col fixed w-full'>
@@ -23,9 +27,12 @@ const DashNavbar = () => {
               <h1>Hello <b className='text-bold'>{registrationNumber}</b> </h1>
               <h2>FUTO</h2>
             </div>
+            <div className='ml-auto p-2'>
+              <LogoutButton />
+            </div>
           </nav>
         </div>
-        {/* Voting Component */}
+        {/* Voting Timer Component */}
         <div className='w-full bg-primary rounded-b-2xl'>
           <section className='rounded bg-red-800 text-white flex py-1 m-5 mt-0 mb-8 items-center'>
             <aside className='px-2'>

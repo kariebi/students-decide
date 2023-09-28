@@ -11,6 +11,7 @@ import { setCredentials } from '../tools/auth/authSlice'
 import { useLoginMutation } from '../tools/auth/authApiSlice'
 
 import useTitle from '../hooks/useTitle'
+import useAuth from '../hooks/useAuth';
 
 const SignIn = () => {
   useTitle("Student Login");
@@ -30,6 +31,7 @@ const SignIn = () => {
   const dispatch = useDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
+  const {isLoggedIn}=useAuth()
 
   const HandlePasswordVisibility = () => {
     setPasswordVisibility(!PasswordVisible)
@@ -41,8 +43,9 @@ const SignIn = () => {
     e.preventDefault()
     try {
       const response = await login({ 'reg_no': RegistrationNumber, 'password': Password }).unwrap()
-      dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber }));
+      dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber, isLoggedIn:true }));
       // console.log(response.token)
+      console.log(isLoggedIn)
       localStorage.setItem('token', response.token);
       setRegistrationNumber('') // Clear the fields
       setPassword('')

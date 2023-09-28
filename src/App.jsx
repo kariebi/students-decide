@@ -8,8 +8,8 @@ import SignIn from './pages/SignIn'
 import ProtectedRoute from './tools/auth/ProtectedRoute'
 import UserDashboard from './pages/UserDashboard'
 import Vote from './pages/Vote'
-import Candidates from './pages/Candidates'
-
+import CandidatesInformation from './pages/CandidatesInformation'
+import ElectionStatus from './pages/ElectionStatus'
 
 import Missing from './pages/Missing';
 
@@ -30,6 +30,9 @@ function App() {
           <Route element={<ProtectedRoute/>}>
             <Route path='userdashboard' element={<DashLayout />}>
               <Route index element={<UserDashboard />} />
+              <Route path='vote'  element={<Vote />} />
+              <Route path='ElectionStatus'  element={<ElectionStatus />} />
+              <Route path='CandidatesInformation'  element={<CandidatesInformation />} />
             </Route>
           </Route>
         </Route>
