@@ -1,11 +1,13 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React from 'react';
+import useAuth from '../hooks/useAuth'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClock } from "@fortawesome/free-solid-svg-icons"
 
 
 const DashNavbar = () => {
+  const { registrationNumber } = useAuth()
   return (
     <div className='w-screen'>
       <div className='flex flex-col fixed w-full'>
@@ -18,7 +20,7 @@ const DashNavbar = () => {
                 style={{ color: "#007f00" }} />
             </div>
             <div className='pl-2 text-white'>
-              <h1>Hello 'Username'</h1>
+              <h1>Hello <b className='text-bold'>{registrationNumber}</b> </h1>
               <h2>FUTO</h2>
             </div>
           </nav>

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 const DashLayout = () => {
     return (
-        <div className='flex-grow flex flex-col w-full min-h-screen'>
+        <div className='flex-grow flex justify-center items-center flex-col w-full min-h-screen'>
             <Outlet />
         </div>
     )

@@ -40,9 +40,10 @@ const SignIn = () => {
   const AttemptLogin = async (e) => {
     e.preventDefault()
     try {
-      const response = await login({ 'reg_no':RegistrationNumber,'password': Password }).unwrap()
-      dispatch(setCredentials({ accessToken: response.token }))
-      console.log(response.token)
+      const response = await login({ 'reg_no': RegistrationNumber, 'password': Password }).unwrap()
+      dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber }));
+      // console.log(response.token)
+      localStorage.setItem('token', response.token);
       setRegistrationNumber('') // Clear the fields
       setPassword('')
       setErrMsg('') // Clear any previous error messages

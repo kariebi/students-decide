@@ -1,26 +1,37 @@
+// useAuth.jsx
 import { useSelector } from 'react-redux';
-import { selectCurrentToken } from "../tools/auth/authSlice";
-import jwtDecode from 'jwt-decode';
+import { selectCurrentToken, selectRegistrationNumber } from "../tools/auth/authSlice";
+// import jwtDecode from 'jwt-decode';
 
 const useAuth = () => {
-    const token = useSelector(selectCurrentToken)
-    let isManager = false
-    let isAdmin = false
-    let status = "Student"
+    const token = useSelector(selectCurrentToken);
+    const registrationNumber = useSelector(selectRegistrationNumber); // Select the registration number
 
-    if (token) {
-        const decoded = jwtDecode(token)
-        const { username, roles } = decoded.UserInfo
+    //   let isManager = false;
+    //   let isAdmin = false;
+    let status = "Student";
+    let isLoggedIn = !!token; // Check if the token is present
 
-        isManager = roles.includes('Manager')
-        isAdmin = roles.includes('Admin')
+    // if (token) {
+    //     const decoded = jwtDecode(token);
+    //     const { username, roles } = decoded.UserInfo;
 
-        if (isManager) status = "Manager"
-        if (isAdmin) status = "Admin"
+    //     isManager = roles.includes('Manager');
+    //     isAdmin = roles.includes('Admin');
 
-        return { username, roles, status, isManager, isAdmin }
-    }
+    //     if (isManager) status = "Manager";
+    //     if (isAdmin) status = "Admin";
+    // }
 
-    return { username: '', roles: [], isManager, isAdmin, status }
-}
-export default useAuth
+    return {
+        // username,
+        // roles,
+        status,
+        // isManager,
+        // isAdmin,
+        isLoggedIn,
+        registrationNumber
+    };
+};
+
+export default useAuth;

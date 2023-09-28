@@ -20,40 +20,40 @@ export const authapiSlice = apiSlice.injectEndpoints({
             //     }
             // }
         }),
-        sendLogout: builder.mutation({
-            query: () => ({
-                url: '/account/auth/logout/',
-                method: 'POST',
-            }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled
-                    console.log(data)
-                    dispatch(logOut())
-                    setTimeout(() => {
-                        dispatch(apiSlice.util.resetApiState())
-                    }, 1000)
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-        }),
-        refresh: builder.mutation({
-            query: () => ({
-                url: '/auth/refresh/',
-                method: 'GET',
-            }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled
-                    console.log(data)
-                    const { accessToken } = data
-                    dispatch(setCredentials({ accessToken }))
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-        }),
+        // sendLogout: builder.mutation({
+        //     query: () => ({
+        //         url: '/account/auth/logout/',
+        //         method: 'POST',
+        //     }),
+        //     async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        //         try {
+        //             const { data } = await queryFulfilled
+        //             console.log(data)
+        //             dispatch(logOut())
+        //             setTimeout(() => {
+        //                 dispatch(apiSlice.util.resetApiState())
+        //             }, 1000)
+        //         } catch (err) {
+        //             console.log(err)
+        //         }
+        //     }
+        // }),
+        // refresh: builder.mutation({
+        //     query: () => ({
+        //         url: '/auth/refresh/',
+        //         method: 'GET',
+        //     }),
+        //     async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        //         try {
+        //             const { data } = await queryFulfilled
+        //             console.log(data)
+        //             const { accessToken } = data
+        //             dispatch(setCredentials({ accessToken }))
+        //         } catch (err) {
+        //             console.log(err)
+        //         }
+        //     }
+        // }),
         passwordRecovery: builder.mutation({
             query: (email) => ({
                 url: '/account/auth/password-recovery/', // Adjust the URL as needed
@@ -76,7 +76,7 @@ export const authapiSlice = apiSlice.injectEndpoints({
 
 export const {
     useLoginMutation,
-    useSendLogoutMutation,
-    useRefreshMutation,
+    // useSendLogoutMutation,
+    // useRefreshMutation,
     usePasswordRecoveryMutation,
 } = authapiSlice 
