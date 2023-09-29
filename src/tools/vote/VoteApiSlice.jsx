@@ -5,37 +5,37 @@ import { apiSlice } from "../../app/api/apiSlice"
 export const voteApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getCandidates: builder.query({
-            query: () => 'candidates/',
+            query: () => '/voting/candidates/',
         }),
         getCandidatesFaculty: builder.query({
-            query: () => 'candidates-faculty/',
+            query: () => '/voting/candidates-faculty/',
         }),
         getDepartmentVotes: builder.query({
             query: () => 'department/',
         }),
         postDepartmentVotes: builder.mutation({
             query: (votes) => ({
-                url: 'department/',
+                url: '/voting/department/',
                 method: 'POST',
                 body: { votes },
             }),
         }),
         getFacultyVotes: builder.query({
-            query: () => 'faculty/',
+            query: () => '/voting/faculty/',
         }),
         postFacultyVotes: builder.mutation({
             query: (votes) => ({
-                url: 'faculty/',
+                url: '/voting/faculty/',
                 method: 'POST',
                 body: { votes },
             }),
         }),
         getSugVotes: builder.query({
-            query: () => 'sug/',
+            query: () => '/voting/sug/',
         }),
         postSugVotes: builder.mutation({
             query: (votes) => ({
-                url: 'sug/',
+                url: '/voting/sug/',
                 method: 'POST',
                 body: { votes },
             }),

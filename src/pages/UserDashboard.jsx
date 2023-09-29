@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
-import useTitle from '../hooks/useTitle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVoteYea, faUsers, faChartSimple } from '@fortawesome/free-solid-svg-icons'
 
+import useAuth from '../hooks/useAuth'
+import useTitle from '../hooks/useTitle'
 
 import TopCandidates from '../components/TopCandidates'
 import DashNavbar from '../components/DashNavbar'
@@ -11,7 +11,7 @@ import DashNavbar from '../components/DashNavbar'
 
 const UserDashboard = () => {
 
-  const registrationNumber = localStorage.getItem('registrationNumber')
+  const { registrationNumber } = useAuth()
 
   useTitle(`UniEvoting: ${registrationNumber}`)
 
@@ -60,9 +60,9 @@ const UserDashboard = () => {
         </section>
       </div>
       {/* Top Candidates */}
-      <div className='w-full container flex flex-col'>
+      <div className='w-full container text-center flex flex-col'>
         <div
-          className='max-w-[240px]'
+          className=''
         >
           <div className='flex flex-row w-full items-center pt-3 px-2'>
             <section className='pr-1'>
@@ -73,14 +73,14 @@ const UserDashboard = () => {
             </section>
             <h1 className='font-semibold'>Top Candidates</h1>
           </div>
-          <section className='pt-2 pl-2'>
+          <section className='py-4'>
             <TopCandidates />
           </section>
         </div>
       </div>
       <div className='w-full px-2 h-10 flex justify-center items-center'>
         <Link
-        to='./ElectionStatus'
+          to='./ElectionStatus'
           className='border border-primary w-full max-w-[350px] text-center px-9 py-1 rounded text-primary transition duration-300 hover:bg-primary hover:text-white'
         >
           Monitor Election

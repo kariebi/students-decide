@@ -27,14 +27,14 @@ function App() {
           <Route path='signin' element={<SignIn />} />
           <Route path='passwordrecovery' element={<PasswordRecovery />} />
           {/* Protected Routes */}
-          <Route element={<ProtectedRoute/>}>
+          {/* <Route element={<ProtectedRoute/>}> */}
             <Route path='userdashboard' element={<DashLayout />}>
               <Route index element={<UserDashboard />} />
               <Route path='vote'  element={<Vote />} />
               <Route path='ElectionStatus'  element={<ElectionStatus />} />
               <Route path='CandidatesInformation'  element={<CandidatesInformation />} />
             </Route>
-          </Route>
+          {/* </Route> */}
         </Route>
       </Routes>
     </>

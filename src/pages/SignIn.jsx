@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { 
+  useNavigate,
+  //  Link 
+  } from 'react-router-dom'
 import PulseLoader from 'react-spinners/PulseLoader'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -42,7 +45,7 @@ const SignIn = () => {
   const AttemptLogin = async (e) => {
     e.preventDefault()
     try {
-      const response = await login({ 'reg_no': RegistrationNumber, 'password': Password }).unwrap()
+      const response = await login({ 'reg_no': RegistrationNumber, 'token': Password }).unwrap()
       dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber, isLoggedIn: true }));
       // console.log(response.token)
       // console.log(isLoggedIn)
@@ -166,7 +169,7 @@ const SignIn = () => {
                 </label>
               </div> */}
               <div className="text-center mt-2">
-                <Link to="/PasswordRecovery" className="text-gray-500 text-sm no-underline hover:text-gray-300">Forgot password?</Link>
+                {/* <Link to="/PasswordRecovery" className="text-gray-500 text-sm no-underline hover:text-gray-300">Forgot password?</Link> */}
               </div>
             </div>
           </form>
