@@ -11,7 +11,7 @@ import DashNavbar from '../components/DashNavbar'
 
 const UserDashboard = () => {
 
-  const { registrationNumber } = useAuth()
+  const registrationNumber = localStorage.getItem('registrationNumber')
 
   useTitle(`UniEvoting: ${registrationNumber}`)
 

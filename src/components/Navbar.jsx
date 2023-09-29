@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-import useAuth from '../hooks/useAuth'
+// import useAuth from '../hooks/useAuth'
 
 const Navbar = () => {
-  const { isLoggedIn } = useAuth()
-  console.log(isLoggedIn)
+  const  isLoggedIn  = localStorage.getItem('isLoggedIn')
+  // console.log(isLoggedIn)
   return (
     <div className='flex flex-col fixed w-full'>
       <div className='h-20 w-full backdrop-blur-md  flex items-center flex-row'>

@@ -6,12 +6,12 @@ import PulseLoader from 'react-spinners/PulseLoader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 
-import usePersist from '../hooks/usePersist'
+// import usePersist from '../hooks/usePersist'
 import { setCredentials } from '../tools/auth/authSlice'
 import { useLoginMutation } from '../tools/auth/authApiSlice'
 
 import useTitle from '../hooks/useTitle'
-import useAuth from '../hooks/useAuth';
+// import useAuth from '../hooks/useAuth';
 
 const SignIn = () => {
   useTitle("Student Login");
@@ -22,7 +22,7 @@ const SignIn = () => {
   const [RegistrationNumber, setRegistrationNumber] = useState('');
   const [Password, setPassword] = useState('')
   const [PasswordVisible, setPasswordVisibility] = useState(false)
-  const [persist, setPersist] = usePersist()
+  // const [persist, setPersist] = usePersist()
   const userRef = useRef()
   const errRef = useRef()
   const [errMsg, setErrMsg] = useState('')
@@ -31,33 +31,35 @@ const SignIn = () => {
   const dispatch = useDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
-  const {isLoggedIn}=useAuth()
+  // const { isLoggedIn } = useAuth()
 
   const HandlePasswordVisibility = () => {
     setPasswordVisibility(!PasswordVisible)
   }
 
-  const handleToggle = () => setPersist(prev => !prev)
+  // const handleToggle = () => setPersist(prev => !prev)
 
   const AttemptLogin = async (e) => {
     e.preventDefault()
     try {
       const response = await login({ 'reg_no': RegistrationNumber, 'password': Password }).unwrap()
-      dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber, isLoggedIn:true }));
+      dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber, isLoggedIn: true }));
       // console.log(response.token)
-      console.log(isLoggedIn)
+      // console.log(isLoggedIn)
       localStorage.setItem('token', response.token);
+      localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('registrationNumber', RegistrationNumber);
       setRegistrationNumber('') // Clear the fields
       setPassword('')
       setErrMsg('') // Clear any previous error messages
       navigate('/userdashboard')
     } catch (err) {
-      console.log(err)
-      console.log(err.status)
+      // console.log(err)
+      // console.log(err.status)
       if (!err.status) {
         setErrMsg('No Server Response');
       } else if (err.status === 400) {
-        setErrMsg('Missing Username or Password');
+        setErrMsg('Incorrect Username or Password');
       } else if (err.status === 401) {
         setErrMsg('Unauthorized');
       } else if (err.status == 500) {
@@ -91,7 +93,7 @@ const SignIn = () => {
       <div className={errMsg ? 'w-full absolute top-0 py-2 bg-black/70' : "hidden"}>
         <p ref={errRef} className={errMsg ? " w-full text-center font-bold text-red-500 text-sm" : "hidden"} aria-live="assertive">{errMsg}</p>
       </div>
-      <section className='bg-black/70 rounded-3xl max-w-[300px] w-[95%] min-h-[400px] p-5 '>
+      <section className='bg-black/70 rounded-3xl max-w-[300px] w-[95%] min-h-[300px] p-5 '>
         <div className="">
           <form className="form" onSubmit={AttemptLogin}>
             <div className=" relative max-w-[230px] mx-auto">
@@ -147,7 +149,7 @@ const SignIn = () => {
                   </button>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <label htmlFor="persist" className="w-full  flex justify-center mt-3">
                   <input
                     type="checkbox"
@@ -162,7 +164,7 @@ const SignIn = () => {
                     Trust This Device
                   </p>
                 </label>
-              </div>
+              </div> */}
               <div className="text-center mt-2">
                 <Link to="/PasswordRecovery" className="text-gray-500 text-sm no-underline hover:text-gray-300">Forgot password?</Link>
               </div>

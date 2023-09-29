@@ -9,7 +9,6 @@ const LogoutButton = () => {
 
   const handleLogout = () => {
     // Remove the token from local storage
-    localStorage.removeItem('token');
 
     // Dispatch the logout action
     dispatch(logOut());

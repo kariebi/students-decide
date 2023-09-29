@@ -10,7 +10,7 @@ import LogoutButton from './LogoutButton';
 
 const DashNavbar = () => {
 
-  const { registrationNumber } = useAuth()
+  const registrationNumber = localStorage.getItem('registrationNumber')
 
   return (
     <div className='w-screen'>
