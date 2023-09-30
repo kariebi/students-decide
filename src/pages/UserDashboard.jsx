@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVoteYea, faUsers, faChartSimple } from '@fortawesome/free-solid-svg-icons'
 
-import useAuth from '../hooks/useAuth'
+// import useAuth from '../hooks/useAuth'
 import useTitle from '../hooks/useTitle'
 
 import TopCandidates from '../components/TopCandidates'
@@ -11,12 +11,12 @@ import DashNavbar from '../components/DashNavbar'
 
 const UserDashboard = () => {
 
-  const { registrationNumber } = useAuth()
+  const registrationNumber = localStorage.getItem('registrationNumber')
 
   useTitle(`UniEvoting: ${registrationNumber}`)
 
   return (
-    <div className='flex-grow w-full h-full flex flex-col items-center'>
+    <div className='flex-grow w-full h-full pb-2 flex flex-col items-center'>
       <DashNavbar />
       {/* Links */}
       <div className='pt-[160px] container text-black'>

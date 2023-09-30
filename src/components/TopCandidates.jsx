@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../tools/vote/VoteSlice';
-import { useGetCandidatesFacultyQuery } from '../tools/vote/VoteApiSlice';
+import { useGetCandidatesQuery } from '../tools/vote/VoteApiSlice';
 import { PulseLoader } from 'react-spinners';
 
 const TopCandidates = () => {
   const dispatch = useDispatch();
-  const { data: candidates, isLoading, isError, error } = useGetCandidatesFacultyQuery();
+  const { data: roles, isLoading, isError, error } = useGetCandidatesQuery();
 
   useEffect(() => {
     if (isError) {
@@ -20,34 +20,64 @@ const TopCandidates = () => {
         console.log('Unauthorized');
       } else if (error.status === 500) {
         console.log('Server-Side Error');
-      } 
-      else {
+      } else {
         console.log(error.data?.message);
       }
     }
 
     // Store data in Redux state
-    if (candidates) {
-      dispatch(setCredentials({ candidates }));
+    if (roles) {
+      // Filter out roles without candidates
+      const rolesWithCandidates = roles.filter(role => role.candidates && role.candidates.length > 0);
+
+      // Sort candidates within each role based on total votes in descending order
+      const sortedRoles = rolesWithCandidates.map(role => ({
+        ...role,
+        candidates: role.candidates.slice().sort((a, b) => b.total_votes - a.total_votes),
+      }));
+
+      dispatch(setCredentials({ roles: sortedRoles }));
     }
 
     // Store data in localStorage
-    if (candidates) {
-      localStorage.setItem('candidates', JSON.stringify(candidates));
+    if (roles) {
+      localStorage.setItem('roles', JSON.stringify(roles));
     }
-  }, [isError, error, candidates, dispatch]);
+  }, [isError, error, roles, dispatch]);
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full overflow-x-scroll flex items-center'>
       {isLoading ? (
         <PulseLoader size={5} color={"#22C55E"} />
       ) : (
-        <div>
+        <div className="flex flex-row">
           {/* Render your candidate data here */}
-          {candidates && candidates.map(candidate => (
-            <div key={candidate.id}>
-              {candidate.name}
-            </div>
+          {roles && roles.map(role => (
+            role.candidates && role.candidates.length > 0 && (
+              <div key={role.name} className="mb-2 pl-2 flex flex-row justify-center items-center flex-shrink-0 gap-2">
+                {role.candidates.map(candidate => (
+                  <div key={candidate.name} className="mb-2 p-2 rounded-xl bg-primary text-white flex flex-col justify-center items-center">
+                    {candidate.image ? (
+                      <img
+                        src={candidate.image}
+                        alt={candidate.name}
+                        className="w-12 h-12 rounded-full object-cover "
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-full bg-gray-300 "
+                        // Add styles for circle shape
+                      ></div>
+                    )}
+                    <div>
+                      <h3 className="text-sm font-semibold">{candidate.name}</h3>
+                      <p className="text-xs">{role.name}</p>
+                      <p className="text-xs">Total Votes: {candidate.total_votes}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
           ))}
         </div>
       )}

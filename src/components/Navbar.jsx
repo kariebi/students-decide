@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-import useAuth from '../hooks/useAuth'
+// import useAuth from '../hooks/useAuth'
 
 const Navbar = () => {
-  const  {isLoggedIn}  = useAuth()
+  const  isLoggedIn  = localStorage.getItem('isLoggedIn')
   // console.log(isLoggedIn)
   return (
     <div className='flex flex-col fixed w-full'>

@@ -1,5 +1,5 @@
 import React from 'react';
-import useAuth from '../hooks/useAuth'
+// import useAuth from '../hooks/useAuth'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClock } from "@fortawesome/free-solid-svg-icons"
@@ -10,10 +10,10 @@ import LogoutButton from './LogoutButton';
 
 const DashNavbar = () => {
 
-  const {registrationNumber} = useAuth()
+  const registrationNumber = localStorage.getItem('registrationNumber')
 
   return (
-    <div className='w-screen flex flex-col items-center'>
+    <div className='w-screen z-20 flex flex-col items-center'>
       <div className='justify-center items-center flex flex-col fixed w-full '>
         <div className='h-20 w-full  flex items-center flex-row bg-primary'>
           <nav className='flex items-center justify-start w-full px-3'>
