@@ -31,14 +31,19 @@ const CandidatesInformation = () => {
   };
 
   const handleDetailsClick = (role, candidate) => {
+    // Disable body scrolling when the modal is opened
+    document.body.style.overflow = 'hidden';
     setSelectedRoleForModal(role);
     setSelectedCandidate(candidate);
   };
 
   const handleCloseDetails = () => {
+    // Enable body scrolling when the modal is closed
+    document.body.style.overflow = 'auto';
     setSelectedCandidate(null);
     setSelectedRoleForModal(null);
   };
+
 
   const filteredRoles = roles?.map(role => ({
     ...role,
@@ -158,12 +163,16 @@ const CandidatesInformation = () => {
 
                         {/* Details Modal */}
                         {selectedCandidate && selectedRoleForModal === role.name && selectedCandidate === candidate && (
-                          <div className='fixed inset-0 z-50 backdrop-blur bg-black bg-opacity-50 flex items-center justify-center'>
-                            <div className='bg-white p-4 max-w-md mx-auto rounded-md'>
+                          <div
+                            className='fixed inset-0 z-50 backdrop-blur bg-black bg-opacity-50 flex items-center justify-center'
+                            onClick={handleCloseDetails} // Close the modal when the dark area is clicked
+                          >
+                            <div className='bg-white p-4 max-w-md mx-auto rounded-md' onClick={(e) => e.stopPropagation()}>
+                              {/* Stop propagation to prevent the modal from closing when clicked inside */}
                               <p className='font-bold'>{selectedCandidate.name}</p>
                               <p><b>Role:</b> {selectedRoleForModal}</p>
-                              <section>
                               <b>Manifesto:</b>
+                              <section className="max-h-[70vh] overflow-x-auto">
                                 <p className='text-sm'>{selectedCandidate.manifesto}</p>
                               </section>
                               <button
@@ -175,6 +184,7 @@ const CandidatesInformation = () => {
                             </div>
                           </div>
                         )}
+
                       </div>
                     ))}
                   </div>
