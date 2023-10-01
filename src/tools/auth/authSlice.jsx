@@ -19,10 +19,6 @@ const authSlice = createSlice({
       state.token = action.payload.accessToken;
       state.LoggedIn = action.payload.LoggedIn;
       state.registrationNumber = action.payload.registrationNumber;
-
-      // Save isLoggedIn and registrationNumber to localStorage
-      localStorage.setItem('isLoggedIn', action.payload.LoggedIn);
-      localStorage.setItem('registrationNumber', action.payload.registrationNumber);
     },
     logOut: (state) => {
       state.token = null;

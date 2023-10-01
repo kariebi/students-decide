@@ -12,7 +12,6 @@ import DashNavbar from '../components/DashNavbar'
 const UserDashboard = () => {
 
   const registrationNumber = localStorage.getItem('registrationNumber')
-
   useTitle(`UniEvoting: ${registrationNumber}`)
 
   return (
@@ -22,7 +21,7 @@ const UserDashboard = () => {
       <div className='pt-[160px] container text-black'>
         <section className='mt-5 flex flex-row justify-center h-40 sm:h-60 w-full'>
           <Link
-            to='./vote'
+            to='/vote'
             className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-[#6AAD75] h-full transition duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg'>
             <div className='w-full h-full p-3 flex flex-col'>
               <aside
@@ -40,7 +39,7 @@ const UserDashboard = () => {
             </div>
           </Link>
           <Link
-            to='./CandidatesInformation'
+            to='/CandidatesInformation'
             className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-[#4D6D85] h-full transition duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg'>
             <div className='w-full h-full p-3 flex flex-col'>
               <aside

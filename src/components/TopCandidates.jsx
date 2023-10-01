@@ -8,6 +8,28 @@ const TopCandidates = () => {
   const dispatch = useDispatch();
   const { data: roles, isLoading, isError, error } = useGetCandidatesQuery();
 
+  const handleTopCandidatesScroll = (e) => {
+    e.preventDefault();
+
+    const delta = e.deltaY || (-e.nativeEvent.wheelDelta / 40) || 0;
+    const candidatesContainer = document.getElementById('top-candidates-container');
+
+    if (candidatesContainer) {
+      candidatesContainer.scrollLeft -= delta;
+    }
+  };
+
+  useEffect(() => {
+    const candidatesContainer = document.getElementById('top-candidates-container');
+    if (candidatesContainer) {
+      candidatesContainer.addEventListener('wheel', handleTopCandidatesScroll, { passive: false });
+
+      return () => {
+        // Cleanup: remove the event listener on component unmount
+        candidatesContainer.removeEventListener('wheel', handleTopCandidatesScroll);
+      };
+    }
+  }, []);
   useEffect(() => {
     if (isError) {
       console.log(error);
@@ -46,7 +68,7 @@ const TopCandidates = () => {
   }, [isError, error, roles, dispatch]);
 
   return (
-    <div className='w-full h-full overflow-x-scroll flex items-center'>
+    <div id="top-candidates-container" className='w-full h-full overflow-x-scroll flex items-center'>
       {isLoading ? (
         <PulseLoader size={5} color={"#22C55E"} />
       ) : (
@@ -66,7 +88,7 @@ const TopCandidates = () => {
                     ) : (
                       <div
                         className="w-12 h-12 rounded-full bg-gray-300 "
-                        // Add styles for circle shape
+                      // Add styles for circle shape
                       ></div>
                     )}
                     <div>

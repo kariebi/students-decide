@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Route, Routes } from 'react-router-dom';
 import PrimaryLayout from './Layouts/PrimaryLayout';
 import DashLayout from './Layouts/DashLayout';
@@ -28,8 +30,8 @@ function App() {
           <Route path='passwordrecovery' element={<PasswordRecovery />} />
           {/* Protected Routes */}
           <Route element={<ProtectedRoute/>}>
-            <Route path='userdashboard' element={<DashLayout />}>
-              <Route index element={<UserDashboard />} />
+            <Route element={<DashLayout />}>
+              <Route path='userdashboard' element={<UserDashboard />} />
               <Route path='vote'  element={<Vote />} />
               <Route path='ElectionStatus'  element={<ElectionStatus />} />
               <Route path='CandidatesInformation'  element={<CandidatesInformation />} />
