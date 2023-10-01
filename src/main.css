@@ -4,55 +4,54 @@
 
 
 .form-inp {
-    padding: 11px;
-    /* border: 1px solid #e3e3e3; */
-    line-height: 1;
-    border-radius: 8px;
+  padding: 11px;
+  /* border: 1px solid #e3e3e3; */
+  line-height: 1;
+  border-radius: 8px;
 }
 
 .form-inp:focus {
-    border: 1px solid #00FF7F;
+  border: 1px solid #00FF7F;
 }
 
 .form-inp:first-child {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-inp input {
-    width: 100%;
-    font-size: 13.4px;
-    color: #00FF7F;
-    border: none;
-    padding: 0;
-    margin: 0;
+  width: 100%;
+  font-size: 13.4px;
+  color: #00FF7F;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .form-inp input:focus {
-    outline: none;
+  outline: none;
 }
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-    width: 4px; /* Set the width of the scrollbar */
-    height: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: #abb7c6; /* Set the color of the scrollbar thumb */
-    border-radius: 4px; /* Optional: Round the corners of the thumb */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: #f7fafc; /* Set the color of the scrollbar track */
-  }
-  
-  /* Optional: Hide scrollbar track */
-  /* ::-webkit-scrollbar-track {
-    background-color: transparent;
-  } */
-  
-  /* Optional: Hide scrollbar completely when not interacting */
-  /* ::-webkit-scrollbar {
-    display: none;
-  } */
-  
+  width: 4px;
+  /* Set the width of the scrollbar */
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #abb7c6;
+  /* Set the color of the scrollbar thumb */
+  border-radius: 4px;
+  /* Optional: Round the corners of the thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f7fafc;
+  /* Set the color of the scrollbar track */
+}
+
+
+.bg-selected {
+  background-color: #81e6d9;
+  /* You can adjust the color */
+}

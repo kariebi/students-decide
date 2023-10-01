@@ -36,42 +36,52 @@ const Vote = () => {
     }
   };
 
-
-  const handleDetailsClick = (candidate) => {
-    setSelectedCandidate(candidate);
-  };
-
-  const handleVoteClick = () => {
-    if (selectedCandidate) {
+  const handleVoteClick = (role, candidate) => {
+    // Check if the candidate is already voted
+    const isVoted = votedCandidates.some((voted) => voted.role === role && voted.candidate === candidate);
+  
+    if (isVoted) {
+      // If already voted, remove only the one with the same role.name
+      setVotedCandidates((prevVotedCandidates) =>
+        prevVotedCandidates.filter((voted) => !(voted.role === role.name))
+      );
+    } else {
+      // Add the new vote to votedCandidates
       setVotedCandidates((prevVotedCandidates) => [
-        ...prevVotedCandidates,
-        { role: selectedRole, candidate: selectedCandidate },
+        ...prevVotedCandidates.filter((voted) => voted.role !== role.name), // Remove any previous votes for the same role
+        { role: role.name, candidate: candidate },
       ]);
-      setSelectedCandidate(null);
     }
+  
+    // Update the appearance of the voted candidate
+    setSelectedCandidate({ role: role, candidate: candidate });
   };
+  
+  
+  
 
-  const handleSubmitVotes = async () => {
+
+  const handleSubmitVotes = () => {
     setIsSubmitting(true);
 
-    try {
-      // Extracting only candidate IDs for submission
-      const voteData = votedCandidates.map((vote) => ({
-        role: vote.role,
-        candidateId: vote.candidate.id,
-      }));
+    // try {
+    // Extracting only candidate IDs for submission
+    const voteData = votedCandidates.map((vote) => ({
+      role: vote.role,
+      candidateId: vote.candidate.name,
+    }));
 
-      // Perform the mutation to submit votes
-      await postVotesMutation.mutateAsync({ votes: voteData });
+    console.log(voteData);
+    // await postVotesMutation.mutateAsync({ votes: voteData });
 
-      // Clear voted candidates after successful submission
-      setVotedCandidates([]);
-    } catch (error) {
-      console.error('Error submitting votes:', error);
-      // Handle error, show user a message, etc.
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Clear voted candidates after successful submission
+    setVotedCandidates([]);
+    // } catch (error) {
+    // console.error('Error submitting votes:', error);
+    // Handle error, show user a message, etc.
+    // } finally {
+    setIsSubmitting(false);
+    // }
   };
 
   const filteredRoles = roles?.map((role) => ({
@@ -102,11 +112,27 @@ const Vote = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // Update the appearance of the previously selected candidate
+    const prevSelectedCandidateElement = document.querySelector('.bg-selected');
+    if (prevSelectedCandidateElement) {
+      prevSelectedCandidateElement.classList.remove('bg-selected');
+    }
+
+    // Update the appearance of the newly selected candidate
+    if (selectedCandidate) {
+      const selectedCandidateElement = document.getElementById(selectedCandidate.name);
+      if (selectedCandidateElement) {
+        selectedCandidateElement.classList.add('bg-selected');
+      }
+    }
+  }, [selectedCandidate]);
+
   return (
     <div className='flex-grow w-full h-full flex flex-col'>
       {/* Navbar */}
       <nav className='fixed z-40 flex flex-col w-full'>
-        <section className='w-full flex justify-center text-center py-4  font-semibold bg-primary '>
+        <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
             <header className='flex w-full px-2 justify-center items-center'>
               <Link to='/userdashboard' className='absolute left-2'>
@@ -131,15 +157,19 @@ const Vote = () => {
         </div>
         {/* Role Selector */}
         <div
-          id="roles-container"
+          id='roles-container'
           className='flex gap-2 whitespace-nowrap p-2 overflow-x-scroll bg-white'
           onWheel={handleRoleSelectorScroll}
           onTouchMove={handleRoleSelectorScroll}
-          style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: '0', scrollbarColor: 'transparent transparent' }}
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: '0',
+            scrollbarColor: 'transparent transparent',
+          }}
         >
           <div
             onClick={() => handleRoleSelect('All')}
-            className={`px-6  text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary text-white' : 'bg-gray-300'
+            className={`px-6 text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary text-white' : 'bg-gray-300'
               }`}
           >
             All
@@ -177,11 +207,13 @@ const Vote = () => {
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
-                          className='border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative'
+                          className={`border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative ${selectedCandidate === candidate ? 'bg-selected' : ''
+                            }`}
                           style={{
                             backgroundImage: candidate.image,
                             backgroundColor: candidate.image ? 'transparent' : '#C8E6C9',
                           }}
+                          onClick={() => setSelectedCandidate(candidate)}
                         >
                           <p className='font-bold'>{candidate.name}</p>
                           <p>
@@ -191,43 +223,20 @@ const Vote = () => {
                             <b>Total Votes:</b> {candidate.total_votes}
                           </p>
                           <button
-                            className='bg-primary/90 text-white px-2 py-1 mt-2 rounded-md'
-                            onClick={() => handleDetailsClick(candidate)}
+                            className={`bg-primary/90 text-white px-2 py-1 mt-2 rounded-md ${votedCandidates.some((voted) => voted.role === role && voted.candidate === candidate)
+                              ? 'cursor-not-allowed'
+                              : ''
+                              } ${selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate ? 'bg-black' : ''}`}
+                            onClick={() => handleVoteClick(role, candidate)}
+                            disabled={votedCandidates.some((voted) => role === role && voted.candidate === candidate)}
                           >
-                            Details
-                          </button>
-                          {selectedCandidate === candidate && (
-                            <button
-                              className='bg-primary/90 text-white px-2 py-1 mt-2 rounded-md'
-                              onClick={handleVoteClick}
-                            >
-                              {votedCandidates.some(
-                                (voted) => voted.role === selectedRole && voted.candidate === candidate
-                              )
+                            {selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate
+                              ? candidate.isVoted
                                 ? 'Voted'
-                                : 'Vote'}
-                            </button>
-                          )}
+                                : 'Vote'
+                              : 'Vote'}
+                          </button>
                         </div>
-
-                        {/* Details Modal */}
-                        {selectedCandidate && selectedCandidate === candidate && (
-                          <div className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center'>
-                            <div className='bg-white p-4 max-w-md mx-auto rounded-md'>
-                              <p className='font-bold'>{selectedCandidate.name}</p>
-                              <p>
-                                <b>Role:</b> {selectedRole}
-                              </p>
-                              {/* Add other details here */}
-                              <button
-                                className='bg-primary text-white px-2 py-1 rounded-md mt-2'
-                                onClick={handleCloseDetails}
-                              >
-                                Close
-                              </button>
-                            </div>
-                          </div>
-                        )}
                       </div>
                     ))}
                   </div>
@@ -241,9 +250,10 @@ const Vote = () => {
           )}
         </div>
         {/* Vote Submission Component */}
-        <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4  backdrop-blur-md '>
+        <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4 backdrop-blur-md '>
           <button
-            className={`bg-primary w-[96%] max-w-[400px] text-white px-4 py-2 rounded-md ${isSubmitting && 'opacity-50 cursor-not-allowed'}`}
+            className={`bg-primary w-[96%] max-w-[400px] text-white px-4 py-2 rounded-md ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             onClick={handleSubmitVotes}
             disabled={isSubmitting}
           >
