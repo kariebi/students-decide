@@ -39,7 +39,7 @@ const Vote = () => {
   const handleVoteClick = (role, candidate) => {
     // Check if the candidate is already voted
     const isVoted = votedCandidates.some((voted) => voted.role === role && voted.candidate === candidate);
-  
+
     if (isVoted) {
       // If already voted, remove only the one with the same role.name
       setVotedCandidates((prevVotedCandidates) =>
@@ -52,13 +52,13 @@ const Vote = () => {
         { role: role.name, candidate: candidate },
       ]);
     }
-  
+
     // Update the appearance of the voted candidate
     setSelectedCandidate({ role: role, candidate: candidate });
   };
-  
-  
-  
+
+
+
 
 
   const handleSubmitVotes = () => {
@@ -188,7 +188,7 @@ const Vote = () => {
       </nav>
       {/* Body of the page */}
       <section className='flex-grow pt-[165px] flex flex-col w-full justify-center items-center'>
-        <div className='container w-full h-full flex flex-col flex-grow'>
+        <div className='container w-full h-full flex flex-col flex-grow  mb-16'>
           {/* Render Roles and Candidates */}
           {isLoading ? (
             <p className='w-full h-full flex items-center justify-center text-center flex-grow'>
@@ -207,13 +207,15 @@ const Vote = () => {
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
-                          className={`border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative ${selectedCandidate === candidate ? 'bg-selected' : ''
-                            }`}
+                          className={`
+         border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative
+        ${selectedCandidate === candidate ? 'text-white' : ''}
+        ${votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate) ? 'text-white bg-black/90' : 'bg-[#C8E6C9]'}
+      `}
                           style={{
                             backgroundImage: candidate.image,
-                            backgroundColor: candidate.image ? 'transparent' : '#C8E6C9',
                           }}
-                          onClick={() => setSelectedCandidate(candidate)}
+                          onClick={() => handleVoteClick(role, candidate)}
                         >
                           <p className='font-bold'>{candidate.name}</p>
                           <p>
@@ -223,17 +225,16 @@ const Vote = () => {
                             <b>Total Votes:</b> {candidate.total_votes}
                           </p>
                           <button
-                            className={`bg-primary/90 text-white px-2 py-1 mt-2 rounded-md ${votedCandidates.some((voted) => voted.role === role && voted.candidate === candidate)
-                              ? 'cursor-not-allowed'
-                              : ''
-                              } ${selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate ? 'bg-black' : ''}`}
+                            className={`
+          bg-primary/90 text-white px-2 py-1 mt-2 rounded-md
+          ${votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate) ? 'cursor-not-allowed bg-black' : ''}
+          ${selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate ? 'bg-black' : ''}
+        `}
                             onClick={() => handleVoteClick(role, candidate)}
-                            disabled={votedCandidates.some((voted) => role === role && voted.candidate === candidate)}
+                            disabled={votedCandidates.some((voted) => role.name === role.name && voted.candidate === candidate)}
                           >
                             {selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate
-                              ? candidate.isVoted
-                                ? 'Voted'
-                                : 'Vote'
+                              ? 'Voted'
                               : 'Vote'}
                           </button>
                         </div>
