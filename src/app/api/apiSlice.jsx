@@ -6,10 +6,10 @@ const baseQuery = fetchBaseQuery({
     baseUrl: 'https://futoevoting.pythonanywhere.com/',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
-        const token = getState().auth.token
+        const token = localStorage.getItem('token') //getState().auth.token
 
         if (token) {
-            headers.set("authorization", `Bearer ${token}`)
+            headers.set("Authorization", `${token}`)
         }
         return headers
     }
