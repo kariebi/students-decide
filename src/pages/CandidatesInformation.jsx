@@ -1,10 +1,8 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faSearch } from '@fortawesome/free-solid-svg-icons';
 import PulseLoader from 'react-spinners/PulseLoader';
-
 import { useGetCandidatesQuery } from '../tools/vote/VoteApiSlice';
 
 const CandidatesInformation = () => {
@@ -12,6 +10,7 @@ const CandidatesInformation = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState('All');
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [selectedRoleForModal, setSelectedRoleForModal] = useState(null);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -19,26 +18,26 @@ const CandidatesInformation = () => {
 
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
-    setSelectedCandidate(null); // Reset selected candidate when role changes
+    setSelectedCandidate(null);
   };
 
   const handleRoleSelectorScroll = (e) => {
     e.preventDefault();
-  
     const delta = e.deltaY || (-e.nativeEvent.wheelDelta / 40) || 0;
     const rolesContainer = document.getElementById('roles-container');
-  
     if (rolesContainer) {
       rolesContainer.scrollLeft -= delta;
     }
-  };  
+  };
 
-  const handleDetailsClick = (candidate) => {
+  const handleDetailsClick = (role, candidate) => {
+    setSelectedRoleForModal(role);
     setSelectedCandidate(candidate);
   };
 
   const handleCloseDetails = () => {
     setSelectedCandidate(null);
+    setSelectedRoleForModal(null);
   };
 
   const filteredRoles = roles?.map(role => ({
@@ -56,7 +55,6 @@ const CandidatesInformation = () => {
 
   const hasSearchResults = filteredRolesByRole?.some(role => role.candidates.length > 0);
 
-
   useEffect(() => {
     const rolesContainer = document.getElementById('roles-container');
     if (rolesContainer) {
@@ -73,7 +71,7 @@ const CandidatesInformation = () => {
     <div className='flex-grow w-full h-full flex flex-col'>
       {/* Navbar */}
       <nav className='fixed z-40 flex flex-col w-full'>
-        <section className='w-full flex justify-center text-center py-4  font-semibold bg-primary '>
+        <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
             <header className='flex w-full px-2 justify-center items-center'>
               <Link to='/userdashboard' className='absolute left-2'>
@@ -105,7 +103,7 @@ const CandidatesInformation = () => {
           style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: '0', scrollbarColor: 'transparent transparent' }}>
           <div
             onClick={() => handleRoleSelect('All')}
-            className={`px-6  text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary text-white' : 'bg-gray-300'}`}
+            className={`px-6 text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary text-white' : 'bg-gray-300'}`}
           >
             All
           </div>
@@ -113,7 +111,7 @@ const CandidatesInformation = () => {
             <div
               key={role.name}
               onClick={() => handleRoleSelect(role.name)}
-              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2  ${selectedRole === role.name ? 'bg-primary text-white' : 'bg-gray-300'}`}
+              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2 ${selectedRole === role.name ? 'bg-primary text-white' : 'bg-gray-300'}`}
             >
               {role.name}
             </div>
@@ -148,26 +146,26 @@ const CandidatesInformation = () => {
                           }}
                         >
                           <p className='font-bold'>{candidate.name}</p>
-                          <p>
-                            <b>Role:</b> {role.name}</p>
-                          <p>
-                            <b>Total Votes:</b> {candidate.total_votes}
-                          </p>
+                          <p><b>Role:</b> {role.name}</p>
+                          <p><b>Total Votes:</b> {candidate.total_votes}</p>
                           <button
                             className='bg-primary/90 text-white px-2 py-1 mt-2 rounded-md'
-                            onClick={() => handleDetailsClick(candidate)}
+                            onClick={() => handleDetailsClick(role.name, candidate)}
                           >
                             Details
                           </button>
                         </div>
 
                         {/* Details Modal */}
-                        {selectedCandidate && selectedCandidate === candidate && (
-                          <div className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center'>
+                        {selectedCandidate && selectedRoleForModal === role.name && selectedCandidate === candidate && (
+                          <div className='fixed inset-0 z-50 backdrop-blur bg-black bg-opacity-50 flex items-center justify-center'>
                             <div className='bg-white p-4 max-w-md mx-auto rounded-md'>
                               <p className='font-bold'>{selectedCandidate.name}</p>
-                              <p><b>Role:</b> {selectedRole}</p>
-                              {/* Add other details here */}
+                              <p><b>Role:</b> {selectedRoleForModal}</p>
+                              <section>
+                              <b>Manifesto:</b>
+                                <p className='text-sm'>{selectedCandidate.manifesto}</p>
+                              </section>
                               <button
                                 className='bg-primary text-white px-2 py-1 rounded-md mt-2'
                                 onClick={handleCloseDetails}
