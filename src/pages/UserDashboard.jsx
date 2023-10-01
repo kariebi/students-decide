@@ -79,7 +79,7 @@ const UserDashboard = () => {
       </div>
       <div className='w-full px-2 h-10 flex justify-center items-center'>
         <Link
-          to='./ElectionStatus'
+          to='/ElectionStatus'
           className='border border-primary w-full max-w-[350px] text-center px-9 py-1 rounded text-primary transition duration-300 hover:bg-primary hover:text-white'
         >
           Monitor Election

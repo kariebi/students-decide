@@ -226,16 +226,17 @@ const Vote = () => {
                           </p>
                           <button
                             className={`
-          bg-primary/90 text-white px-2 py-1 mt-2 rounded-md
-          ${votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate) ? 'cursor-not-allowed bg-black' : ''}
-          ${selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate ? 'bg-black' : ''}
-        `}
+                            bg-primary/90 px-2 py-1 mt-2 rounded-md
+    ${votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate) ? 'cursor-not-allowed text-black' : ' text-white'}
+  `}
                             onClick={() => handleVoteClick(role, candidate)}
                             disabled={votedCandidates.some((voted) => role.name === role.name && voted.candidate === candidate)}
                           >
-                            {selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate
+                            {votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate)
                               ? 'Voted'
-                              : 'Vote'}
+                              : selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate
+                                ? 'Vote'
+                                : 'Vote'}
                           </button>
                         </div>
                       </div>
