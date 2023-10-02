@@ -1,7 +1,7 @@
 import { apiSlice } from "../../app/api/apiSlice"
 
 
-// Create the `VoteApiSlice`
+
 export const voteApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getCandidates: builder.query({

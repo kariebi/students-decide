@@ -169,7 +169,7 @@ const CandidatesInformation = () => {
                           >
                             <div className='bg-white p-4 max-w-md mx-auto rounded-md' onClick={(e) => e.stopPropagation()}>
                               {/* Stop propagation to prevent the modal from closing when clicked inside */}
-                              <p className='font-bold'>{selectedCandidate.name}</p>
+                              <p className='font-bold text-2xl'>{selectedCandidate.name}</p>
                               <p><b>Role:</b> {selectedRoleForModal}</p>
                               <b>Manifesto:</b>
                               <section className="max-h-[70vh] overflow-x-auto">
