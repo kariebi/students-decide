@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faSearch } from '@fortawesome/free-solid-svg-icons';
 import PulseLoader from 'react-spinners/PulseLoader';
 
-import { useGetDepartmentVotesQuery,useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
+import { useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
 
 
 const Vote = () => {
-  const { data: roles, isLoading, isError, error } = useGetDepartmentVotesQuery();
+  const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState('All');
   const [selectedCandidate, setSelectedCandidate] = useState(null);

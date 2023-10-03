@@ -58,9 +58,12 @@ const ElectionStatus = () => {
               <PulseLoader size={15} color={"#22C55E"} />
             </div>
           ) : (
-            <div className='text-2xl font-semibold'>
-              <div>
-                {countdown !== null ? countdown : 'Loading...'}
+            <div className='text-2xl font-semibold w-full h-full flex items-center justify-center text-center flex-grow'>
+              <div className='w-full h-full flex items-center justify-center text-center flex-grow'>
+                {countdown !== null ? countdown :
+                  <div className='w-full h-full flex items-center justify-center text-center flex-grow'>
+                    <PulseLoader size={15} color={"#22C55E"} />
+                  </div>}
               </div>
             </div>
           )}
