@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faSearch } from '@fortawesome/free-solid-svg-icons';
 import PulseLoader from 'react-spinners/PulseLoader';
-
 import { useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
-
 
 const Vote = () => {
   const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
@@ -15,7 +13,7 @@ const Vote = () => {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [votedCandidates, setVotedCandidates] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const postVotesMutation = usePostFacultyVotesMutation();
+  const [postVotesMutation] = usePostFacultyVotesMutation();
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -39,50 +37,48 @@ const Vote = () => {
 
   const handleVoteClick = (role, candidate) => {
     // Check if the candidate is already voted
-    const isVoted = votedCandidates.some((voted) => voted.role === role && voted.candidate === candidate);
+    const isVoted = votedCandidates.some(
+      (voted) => voted.role === role.position_id && voted.candidate === candidate
+    );
 
     if (isVoted) {
-      // If already voted, remove only the one with the same role.name
+      // If already voted, remove only the one with the same role.position_id
       setVotedCandidates((prevVotedCandidates) =>
-        prevVotedCandidates.filter((voted) => !(voted.role === role.name))
+        prevVotedCandidates.filter((voted) => !(voted.role === role.position_id))
       );
     } else {
       // Add the new vote to votedCandidates
       setVotedCandidates((prevVotedCandidates) => [
-        ...prevVotedCandidates.filter((voted) => voted.role !== role.name), // Remove any previous votes for the same role
-        { role: role.name, candidate: candidate },
+        ...prevVotedCandidates.filter((voted) => voted.role !== role.position_id), // Remove any previous votes for the same role
+        { role: role.position_id, candidate: candidate },
       ]);
     }
 
     // Update the appearance of the voted candidate
-    setSelectedCandidate({ role: role, candidate: candidate });
+    setSelectedCandidate({ role: role.position_id, candidate: candidate });
   };
 
-
-
-
-
-  const handleSubmitVotes = () => {
+  const handleSubmitVotes = async () => {
     setIsSubmitting(true);
 
-    // try {
-    // Extracting only candidate IDs for submission
-    const voteData = votedCandidates.map((vote) => ({
-      role: vote.role,
-      candidateId: vote.candidate.name,
-    }));
+    try {
+      // Extracting only candidate IDs for submission
+      const voteData = votedCandidates.map((vote) => ({
+        "position_id": vote.role,
+        "candidate_id": vote.candidate.id,
+      }));
 
-    console.log(voteData);
-    // await postVotesMutation.mutateAsync({ votes: voteData });
+      console.log(JSON.stringify({ votes: voteData }));
+      await postVotesMutation(JSON.stringify({ votes: voteData }));
 
-    // Clear voted candidates after successful submission
-    setVotedCandidates([]);
-    // } catch (error) {
-    // console.error('Error submitting votes:', error);
-    // Handle error, show user a message, etc.
-    // } finally {
-    setIsSubmitting(false);
-    // }
+      // Clear voted candidates after successful submission
+      setVotedCandidates([]);
+    } catch (error) {
+      console.error('Error submitting votes:', error);
+      // Handle error, show user a message, etc.
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const filteredRoles = roles?.map((role) => ({
@@ -212,7 +208,7 @@ const Vote = () => {
                           className={`
          border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative
         ${selectedCandidate === candidate ? 'text-white' : ''}
-        ${votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate) ? 'text-white bg-black/90' : 'bg-[#C8E6C9]'}
+        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-white bg-black/90' : 'bg-[#C8E6C9]'}
       `}
                           style={{
                             backgroundImage: candidate.image,
@@ -228,15 +224,15 @@ const Vote = () => {
                           </p>
                           <button
                             className={`
-                            bg-primary/90 px-2 py-1 mt-2 rounded-md
-    ${votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate) ? 'cursor-not-allowed text-black' : ' text-white'}
+    bg-primary/90 px-2 py-1 mt-2 rounded-md
+    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'cursor-not-allowed text-black' : ' text-white'}
   `}
                             onClick={() => handleVoteClick(role, candidate)}
-                            disabled={votedCandidates.some((voted) => role.name === role.name && voted.candidate === candidate)}
+                            disabled={votedCandidates.some((voted) => role.position_id === voted.role && voted.candidate === candidate)}
                           >
-                            {votedCandidates.some((voted) => voted.role === role.name && voted.candidate === candidate)
+                            {votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate)
                               ? 'Voted'
-                              : selectedCandidate && selectedCandidate.role === role && selectedCandidate.candidate === candidate
+                              : selectedCandidate && selectedCandidate.role === role.position_id && selectedCandidate.candidate === candidate
                                 ? 'Vote'
                                 : 'Vote'}
                           </button>

@@ -21,7 +21,10 @@ export const voteApiSlice = apiSlice.injectEndpoints({
             }),
         }),
         getFacultyVotes: builder.query({
-            query: () => '/voting/faculty/',
+            query: () => ({
+                url: '/voting/faculty/',
+                method: 'GET',
+            }),
         }),
         postFacultyVotes: builder.mutation({
             query: (votes) => ({

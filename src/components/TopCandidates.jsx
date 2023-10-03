@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../tools/vote/VoteSlice';
-import { useGetCandidatesQuery } from '../tools/vote/VoteApiSlice';
+import { useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
 import { PulseLoader } from 'react-spinners';
 
 const TopCandidates = () => {
   const dispatch = useDispatch();
-  const { data: roles, isLoading, isError, error } = useGetCandidatesQuery();
+  const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
 
   const handleTopCandidatesScroll = (e) => {
     e.preventDefault();
