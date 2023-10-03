@@ -11,10 +11,9 @@ const baseQuery = fetchBaseQuery({
         ) => {
         const token = localStorage.getItem('token') //getState().auth.token
         headers.set("accept", "application/json");
-        // if (token) {
+        if (token) {
             headers.set("Authorization",`Token${token}`)
-            // console.log(`Token${token}`);
-        // }
+        }
         return headers
     }
 })

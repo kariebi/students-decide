@@ -20,6 +20,9 @@ export const authapiSlice = apiSlice.injectEndpoints({
             //     }
             // }
         }),
+        getUser: builder.query({
+            query: () => 'account/user',
+        }),
         // sendLogout: builder.mutation({
         //     query: () => ({
         //         url: '/account/auth/logout/',
@@ -78,5 +81,6 @@ export const {
     useLoginMutation,
     // useSendLogoutMutation,
     // useRefreshMutation,
+    useGetUserQuery,
     usePasswordRecoveryMutation,
 } = authapiSlice 

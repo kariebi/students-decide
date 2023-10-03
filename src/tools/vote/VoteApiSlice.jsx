@@ -11,7 +11,7 @@ export const voteApiSlice = apiSlice.injectEndpoints({
             query: () => '/voting/candidates-faculty/',
         }),
         getDepartmentVotes: builder.query({
-            query: () => 'department/',
+            query: () => 'voting/department/',
         }),
         postDepartmentVotes: builder.mutation({
             query: (votes) => ({
@@ -29,6 +29,9 @@ export const voteApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: { votes },
             }),
+        }),
+        getVotingPeriod:builder.query({
+            query:()=>'/voting/period'
         }),
         getSugVotes: builder.query({
             query: () => '/voting/sug/',
@@ -51,6 +54,7 @@ export const {
     usePostDepartmentVotesMutation,
     useGetFacultyVotesQuery,
     usePostFacultyVotesMutation,
+    useGetVotingPeriodQuery,
     useGetSugVotesQuery,
     usePostSugVotesMutation,
 } = voteApiSlice;
