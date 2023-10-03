@@ -74,7 +74,8 @@ const Vote = () => {
       // Clear voted candidates after successful submission
       setVotedCandidates([]);
     } catch (error) {
-      console.error('Error submitting votes:', error);
+      console.error('Error submitting votes:', error.message);
+      console.log(error);
       // Handle error, show user a message, etc.
     } finally {
       setIsSubmitting(false);
