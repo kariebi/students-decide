@@ -226,7 +226,7 @@ const Vote = () => {
                         {/* Candidate Card */}
                         <div
                           className={`
-          flex flex-col  justify-center text-center p-4 rounded-md relative
+          flex flex-col  justify-center text-center p-4 rounded-md hover:scale-[0.95] transition duration-500  relative
         ${selectedCandidate === candidate ? 'text-white' : ''}
         ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-faintgreen '}
       `}
