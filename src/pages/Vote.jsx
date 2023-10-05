@@ -299,13 +299,13 @@ const Vote = () => {
                       :
                       <>
                         <button
-                          className='bg-primary w-1/2 text-white px-4 py-2 rounded-md mr-2'
+                          className='bg-primary transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-white px-4 py-2 rounded-md mr-2'
                           onClick={handleConfirmation(true)}
                         >
                           Yes
                         </button>
                         <button
-                          className='bg-gray-300 w-1/2 text-black px-4 py-2 rounded-md ml-2'
+                          className='bg-gray-300 transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-black px-4 py-2 rounded-md ml-2'
                           onClick={handleConfirmation(false)}
                         >
                           No

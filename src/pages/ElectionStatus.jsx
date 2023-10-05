@@ -6,10 +6,11 @@ import { PulseLoader } from 'react-spinners';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan } from '@fortawesome/free-solid-svg-icons';
 
-import { useGetVotingPeriodQuery } from '../tools/vote/VoteApiSlice';
+import { useGetVotingPeriodQuery, useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
 
 const ElectionStatus = () => {
-  const { data: votingPeriod, isLoading } = useGetVotingPeriodQuery();
+  const { data: votingPeriod, isLoading: votingPeriodLoading } = useGetVotingPeriodQuery();
+  const { data: facultyVotes, isLoading: facultyVotesLoading, isError: facultyVotesError } = useGetFacultyVotesQuery();
 
   const [electionStatus, setElectionStatus] = useState(null);
   const [days, setDays] = useState(0);
@@ -18,7 +19,7 @@ const ElectionStatus = () => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    if (votingPeriod && !isLoading) {
+    if (votingPeriod && !votingPeriodLoading) {
       const startDate = new Date(votingPeriod[0].start_date).getTime();
       const endDate = new Date(votingPeriod[0].end_date).getTime();
       const now = new Date().getTime();
@@ -60,11 +61,11 @@ const ElectionStatus = () => {
 
       return () => clearInterval(intervalId);
     }
-  }, [votingPeriod, isLoading]);
+  }, [votingPeriod, votingPeriodLoading]);
 
   return (
     <div className='flex-grow w-full h-full flex flex-col'>
-    {/* Navbar */}
+      {/* Navbar */}
       <nav className='fixed z-40 flex flex-col w-full'>
         <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
@@ -80,9 +81,10 @@ const ElectionStatus = () => {
       {/* Body of the page */}
       <section className='pt-14 flex flex-col w-full justify-center items-center'>
         <div className='container flex flex-wrap'>
-          {isLoading ? (
+          {/* Timer */}
+          {votingPeriodLoading ? (
             <div className='w-full h-full flex items-center justify-center text-center flex-grow'>
-              <PulseLoader size={15} color={"#22C55E"} />
+              <PulseLoader size={15} color='#22C55E' />
             </div>
           ) : (
             <div className='text-2xl font-semibold w-full h-full flex items-center justify-center text-center flex-grow'>
@@ -94,10 +96,69 @@ const ElectionStatus = () => {
                   </div>
                 ) : (
                   <div className='w-full h-full flex items-center justify-center text-center flex-grow'>
-                    <PulseLoader size={15} color={"#22C55E"} />
+                    <PulseLoader size={15} color='#22C55E' />
                   </div>
                 )}
               </div>
+            </div>
+          )}
+          {/* Candidate voting info such as name, total_votes, image */}
+          {facultyVotesLoading ? (
+            <div className='w-full h-screen flex items-center justify-center text-center flex-grow'>
+              <PulseLoader size={15} color='#22C55E' />
+            </div>
+          ) : facultyVotesError ? (
+            <div>Error loading faculty votes</div>
+          ) : (
+            <div className='flex flex-col mt-8 w-full justify-center items-center'>
+              {facultyVotes?.map((position) => (
+                <div key={position.position_id} className='bg-white p-4 w-full rounded-md shadow-md m-4'>
+                  <h2 className='text-lg font-semibold'>{position.name}</h2>
+                  <hr className='border-t border-gray-300 my-2' />
+                  <div className='space-y-2'>
+                    {position.candidates.map((candidate) => (
+                      <div key={candidate.id} className='flex items-center'>
+                        {candidate.image ? (
+                          <img
+                            src={candidate.image}
+                            alt={candidate.name}
+                            className='w-10 h-10 object-cover rounded-full mr-2'
+                          />
+                        ) : (
+                          <div className='w-10 h-10 rounded-full bg-faintgreen'></div>
+                        )}
+                        <div>
+                          <p className='font-semibold'>{candidate.name}</p>
+                          <p>Total Votes: {candidate.total_votes}</p>
+                          <p>
+                            Voting Percentage: {((candidate.total_votes / position.candidates.reduce((acc, curr) => acc + curr.total_votes, 0)) * 100).toFixed(2)}%
+                          </p>
+                          {/* Progress bar */}
+                          <div className='relative pt-1'>
+                            <div className='flex mb-2 items-center justify-between'>
+                              <div>
+                                <span className='text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-faintgreen bg-gray-200'>
+                                  {((candidate.total_votes / position.candidates.reduce((acc, curr) => acc + curr.total_votes, 0)) * 100).toFixed(2)}%
+                                </span>
+                              </div>
+                            </div>
+                            <div className='flex flex-col'>
+                              <div className='w-full bg-gray-200 rounded-full'>
+                                <div
+                                  className='w-full bg-faintgreen leading-none py-1 rounded-full'
+                                  style={{
+                                    width: `${((candidate.total_votes / position.candidates.reduce((acc, curr) => acc + curr.total_votes, 0)) * 100).toFixed(2)}%`,
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>

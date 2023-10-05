@@ -18,7 +18,7 @@ const Hero = () => {
     }
   };
   return (
-    <div className='flex flex-col flex-grow w-full pt-20'>
+    <div className='flex flex-col items-center justify-center flex-grow h-full w-full pt-20'>
       <Lottie
         options={defaultOptions}
         height={400}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faSearch } from '@fortawesome/free-solid-svg-icons';
 import PulseLoader from 'react-spinners/PulseLoader';
-import { useGetCandidatesQuery ,useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
+import { useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
 
 const CandidatesInformation = () => {
   const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
