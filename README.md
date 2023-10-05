@@ -1,8 +1,6 @@
-# UniE-Voting: University E-Voting Portal
+# Student Dictates: University E-Voting Portal
 
-Welcome to **UniE-Voting**, your university's advanced and user-friendly E-Voting platform! This platform is designed to empower students and streamline the voting process for various university-related activities, including departmental representatives, student union government elections, and other important decision-making events.
-
-<!-- ![UniE-Voting Banner](link-to-our-banner-image) -->
+Welcome to **Student Dictates**, your university's advanced and user-friendly E-Voting platform! This platform is designed to empower students and streamline the voting process for various university-related activities, including departmental representatives, student union government elections, and other important decision-making events.
 
 ## Features
 
@@ -15,14 +13,14 @@ Welcome to **UniE-Voting**, your university's advanced and user-friendly E-Votin
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/Ulpha-Deep-Labs/UniEvoting`
-2. Navigate to the project directory: `cd UniE-Voting`
+1. Clone the repository: `git clone https://github.com/Ulpha-Deep-Labs/uniEvotingfrontend`
+2. Navigate to the project directory: `cd unievotingfrontend`
 3. Install dependencies: `npm install`
 
 ## Usage
 
-1. Run the development server: `npm start`
-2. Access the platform through your browser at `http://localhost:3000`
+1. Run the development server: `npm run dev`
+2. Access the platform through your browser at `http://localhost:5173`
 
 ## Administrator Guide
 
@@ -40,22 +38,18 @@ Welcome to **UniE-Voting**, your university's advanced and user-friendly E-Votin
 
 ## Technologies Used
 
-- React.js for building the interactive user interface.
+- React.js/Vite for building the interactive user interface.
 - Django for server-side development.
 - MySQL for storing user and voting data.
 - Tailwind CSS & Vanilla CSS for responsive and modern styling.
 
-<!-- ## Contributing
-
-We welcome contributions from the community! Feel free to open issues or submit pull requests. Make sure to follow our [contribution guidelines](link-to-contributing.md). -->
-
-<!-- ## License -->
-
-<!-- This project is licensed under the [MIT License](link-to-license.md). -->
-
 ---
 
-We're excited to bring you **UniE-Voting**, the ultimate platform for student participation and engagement. Let your voice be heard, and together, let's shape the future of our university! 
-<!-- If you have any questions, reach out to our support team at [support@unievoting.com](mailto). -->
+## Contributors
 
-<!-- Visit us at [https://www.unievoting.com](https://) -->
+<!-- Contributors' Profile Pictures -->
+[<img src="https://github.com/Ulpha-Deep-Labs.png" width="50">](https://github.com/Ulpha-Deep-Labs)
+[<img src="https://github.com/kariebi.png" width="50">](https://github.com/kariebi)
+<!-- Add more contributor images as needed -->
+
+We're excited to bring you **Student Dictates**, the ultimate platform for student participation and engagement. Let your voice be heard, and together, let's shape the future of our university!

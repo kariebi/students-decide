@@ -13,10 +13,10 @@ import Footer from '../components/home/Footer'
 const UserDashboard = () => {
 
   const registrationNumber = localStorage.getItem('registrationNumber')
-  useTitle(`UniEvoting: ${registrationNumber}`)
+  useTitle(`Student Dictactes: ${registrationNumber}`)
 
   return (
-    <div className='flex-grow w-full h-full pb-2 flex flex-col bg-faintgreen/40 items-center'>
+    <div className='flex-grow w-full h-full min-h-screen pb-2 flex flex-col bg-faintgreen/40 items-center'>
       <DashNavbar />
       {/* Links */}
       <div className='pt-[160px] container text-black'>
@@ -86,7 +86,9 @@ const UserDashboard = () => {
           Monitor Election
         </Link>
       </div>
+      <div className='mt-auto w-full'>
       <Footer/>
+      </div>
     </div>
   )
 }

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan, faSearch, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faSearch, faCheckCircle, faClose } from '@fortawesome/free-solid-svg-icons';
 
 import PulseLoader from 'react-spinners/PulseLoader';
+
 import { useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
 
 const Vote = () => {
@@ -14,6 +15,8 @@ const Vote = () => {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [votedCandidates, setVotedCandidates] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [postVotesMutation] = usePostFacultyVotesMutation();
 
   const handleSearch = (e) => {
@@ -27,7 +30,6 @@ const Vote = () => {
 
   const handleRoleSelectorScroll = (e) => {
     e.preventDefault();
-
     const delta = e.deltaY || (-e.nativeEvent.wheelDelta / 40) || 0;
     const rolesContainer = document.getElementById('roles-container');
 
@@ -59,27 +61,44 @@ const Vote = () => {
     setSelectedCandidate({ role: role.position_id, candidate: candidate });
   };
 
-  const handleSubmitVotes = async () => {
-    setIsSubmitting(true);
+  const handleSubmitVotes = () => {
+    // Show confirmation box
+    setShowConfirmation(true);
+  };
 
-    try {
-      // Extracting only candidate IDs for submission
-      const voteData = votedCandidates.map((vote) => ({
-        "position_id": vote.role,
-        "candidate_id": vote.candidate.id,
-      }));
+  const handleConfirmation = (confirm) => async () => {
+    if (confirm) {
+      setIsSubmitting(true);
 
-      console.log(JSON.stringify({ votes: voteData }));
-      await postVotesMutation(JSON.stringify({ votes: voteData }));
+      try {
+        // Extracting only candidate IDs for submission
+        const voteData = votedCandidates.map((vote) => ({
+          position_id: vote.role,
+          candidate_id: vote.candidate.id,
+        }));
 
-      // Clear voted candidates after successful submission
-      setVotedCandidates([]);
-    } catch (error) {
-      console.error('Error submitting votes:', error.message);
-      console.log(error);
-      // Handle error, show user a message, etc.
-    } finally {
-      setIsSubmitting(false);
+        console.log(JSON.stringify({ votes: voteData }));
+        await postVotesMutation(JSON.stringify({ votes: voteData }));
+
+        // Clear voted candidates after successful submission
+        setVotedCandidates([]);
+        setShowSuccess(true);
+
+        // Hide success message after 2 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+          setShowConfirmation(false);
+        }, 2500);
+      } catch (error) {
+        console.error('Error submitting votes:', error.message);
+        console.log(error);
+        // Handle error, show user a message, etc.
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      // If the user clicks "No" or closes the box
+      setShowConfirmation(false);
     }
   };
 
@@ -126,7 +145,6 @@ const Vote = () => {
       }
     }
   }, [selectedCandidate]);
-
 
   return (
     <div className='flex-grow w-full h-full flex flex-col'>
@@ -252,16 +270,68 @@ const Vote = () => {
           )}
         </div>
         {/* Vote Submission Component */}
-        <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4 backdrop-blur-md '>
-          <button
-            className={`bg-primary w-[96%] max-w-[400px] text-white px-4 py-2 rounded-md ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            onClick={handleSubmitVotes}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting Votes...' : 'Submit Votes'}
-          </button>
-        </div>
+        {showConfirmation && (
+          <div className='fixed flex items-center justify-center h-screen z-50 top-0 p-4 backdrop-blur-md '>
+            <div className='bg-faintgreen rounded-md max-w-[400px] text-center'>
+              <div>
+                <div className='cursor-pointer px-1.5 pt-1 flex justify-end' onClick={handleConfirmation(false)}>
+                  <FontAwesomeIcon
+                    icon={faClose} />
+                </div>
+              </div>
+              <div className='flex flex-col p-4 pt-0'>
+                <p>You have only voted in the categories you have selected. Are you sure you want to submit? <br /> <b className='uppercase text-sm'>You can only vote once</b></p>
+
+                <div className='flex justify-center mt-4'>
+                  {isSubmitting ?
+                    <PulseLoader
+                      size={5}
+                      color='#007F00'
+                    />
+                    :
+                    <>
+                      {showSuccess ? 
+                        <div className='flex justify-center'>
+                          <div className='bg-primary text-white p-2 rounded-md max-w-[400px] text-center'>
+                            <p>Votes submitted successfully!</p>
+                          </div>
+                        </div>
+                      :
+                      <>
+                        <button
+                          className='bg-primary w-1/2 text-white px-4 py-2 rounded-md mr-2'
+                          onClick={handleConfirmation(true)}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          className='bg-gray-300 w-1/2 text-black px-4 py-2 rounded-md ml-2'
+                          onClick={handleConfirmation(false)}
+                        >
+                          No
+                        </button>
+                      </>
+                      }
+                    </>
+                    }
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
+        {!showConfirmation && !showSuccess && (
+          <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4 backdrop-blur-md '>
+            <button
+              className={`bg-primary w-[96%] max-w-[400px] text-white px-4 py-2 rounded-md ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+              onClick={handleSubmitVotes}
+              disabled={isSubmitting}
+            >
+              Submit Votes
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );
