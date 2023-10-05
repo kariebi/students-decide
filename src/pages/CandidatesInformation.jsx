@@ -73,13 +73,13 @@ const CandidatesInformation = () => {
   }, []);
 
   return (
-    <div className='flex-grow w-full h-full flex flex-col bg-faintgreen/50'>
+    <div className='flex-grow w-full h-full flex flex-col'>
       {/* Navbar */}
-      <nav className='fixed z-40 flex flex-col w-full bg-faintgreen'>
+      <nav className='fixed z-40 flex flex-col w-full bg-faintgreen backdrop-blur-md'>
         <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
             <header className='flex w-full px-2 justify-center items-center'>
-              <Link to='/userdashboard' className='absolute left-2'>
+              <Link to='/userdashboard' className='absolute left-4'>
                 <FontAwesomeIcon icon={faLessThan} size="lg" style={{ color: "#ffffff" }} />
               </Link>
               <p className='text-white'>Candidates Information</p>
@@ -137,17 +137,17 @@ const CandidatesInformation = () => {
             filteredRolesByRole?.map(role => (
               role.candidates.length > 0 && (
                 <div key={role.name} className='mb-0'>
-                  <h2 className='text-2xl ml-2 font-semibold'>{role.name}</h2>
-                  <hr className='border border-primaryorange/20 my-1' />
+                  <h2 className='text-2xl ml-2 text-black font-semibold'>{role.name}</h2>
+                  <hr className='border border-primary/50 my-1' />
                   <div className='flex flex-wrap'>
                     {role.candidates.map(candidate => (
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
-                          className='border flex flex-col border-primaryorange/20 justify-center text-center p-4 rounded-md relative'
+                          className='flex flex-col bg-faintgreen  justify-center text-center p-4 rounded-md relative'
                           style={{
                             backgroundImage: candidate.image,
-                            backgroundColor: candidate.image ? 'transparent' : '#C8E6C9',
+                            // backgroundColor: '#C8E6C9',
                           }}
                         >
                           <p className='font-bold'>{candidate.name}</p>
@@ -176,7 +176,7 @@ const CandidatesInformation = () => {
                                 <p className='text-sm'>{selectedCandidate.manifesto}</p>
                               </section>
                               <button
-                                className='bg-primary text-white px-2 py-1 rounded-md mt-2 hover:bg-primaryorange'
+                                className='bg-primary text-white px-2 py-1 rounded-md mt-2 hover:bg-primaryblue'
                                 onClick={handleCloseDetails}
                               >
                                 Close

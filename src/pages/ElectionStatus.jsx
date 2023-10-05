@@ -69,7 +69,7 @@ const ElectionStatus = () => {
         <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
             <header className='flex w-full px-2 justify-center items-center'>
-              <Link to='/userdashboard' className='absolute left-2'>
+              <Link to='/userdashboard' className='absolute left-4'>
                 <FontAwesomeIcon icon={faLessThan} size='lg' style={{ color: '#ffffff' }} />
               </Link>
               <p className='text-white'>Election Status</p>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faSearch, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
 import PulseLoader from 'react-spinners/PulseLoader';
 import { useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
 
@@ -130,11 +131,11 @@ const Vote = () => {
   return (
     <div className='flex-grow w-full h-full flex flex-col'>
       {/* Navbar */}
-      <nav className='fixed z-40 flex flex-col w-full'>
+      <nav className='fixed z-40 flex flex-col w-full bg-faintgreen'>
         <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
             <header className='flex w-full px-2 justify-center items-center'>
-              <Link to='/userdashboard' className='absolute left-2'>
+              <Link to='/userdashboard' className='absolute left-4'>
                 <FontAwesomeIcon icon={faLessThan} size='lg' style={{ color: '#ffffff' }} />
               </Link>
               <p className='text-white'>Vote</p>
@@ -157,7 +158,7 @@ const Vote = () => {
         {/* Role Selector */}
         <div
           id='roles-container'
-          className='flex gap-2 whitespace-nowrap p-2 overflow-x-scroll bg-white'
+          className='flex gap-2 whitespace-nowrap p-2 overflow-x-scroll bg-inherit'
           onWheel={handleRoleSelectorScroll}
           onTouchMove={handleRoleSelectorScroll}
           style={{
@@ -168,7 +169,7 @@ const Vote = () => {
         >
           <div
             onClick={() => handleRoleSelect('All')}
-            className={`px-6 text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary text-white' : 'bg-gray-300'
+            className={`px-6 text-center rounded-full text-white cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary ' : 'bg-primaryblue/80'
               }`}
           >
             All
@@ -177,7 +178,7 @@ const Vote = () => {
             <div
               key={role.name}
               onClick={() => handleRoleSelect(role.name)}
-              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2  ${selectedRole === role.name ? 'bg-primary text-white' : 'bg-gray-300'
+              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer text-white p-2  ${selectedRole === role.name ? 'bg-primary ' : 'bg-primaryblue/80'
                 }`}
             >
               {role.name}
@@ -200,16 +201,16 @@ const Vote = () => {
               role.candidates.length > 0 ? (
                 <div key={role.name} className='mb-0'>
                   <h2 className='text-2xl ml-2 font-semibold'>{role.name}</h2>
-                  <hr className='border border-gray-300 my-1' />
+                  <hr className='border border-primary/50 my-1' />
                   <div className='flex flex-wrap'>
                     {role.candidates.map((candidate) => (
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
                           className={`
-         border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative
+          flex flex-col  justify-center text-center p-4 rounded-md relative
         ${selectedCandidate === candidate ? 'text-white' : ''}
-        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-white bg-black/90' : 'bg-[#C8E6C9]'}
+        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-faintgreen '}
       `}
                           style={{
                             backgroundImage: candidate.image,
@@ -225,14 +226,14 @@ const Vote = () => {
                           </p>
                           <button
                             className={`
-    bg-primary/90 px-2 py-1 mt-2 rounded-md
-    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'cursor-not-allowed text-black' : ' text-white'}
+     px-2 py-1 mt-2 rounded-md
+    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue cursor-not-allowed text-black shadow-inner' : ' text-white bg-primary/90 shadow-lg'}
   `}
                             onClick={() => handleVoteClick(role, candidate)}
                             disabled={votedCandidates.some((voted) => role.position_id === voted.role && voted.candidate === candidate)}
                           >
                             {votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate)
-                              ? 'Voted'
+                              ? <div className='flex justify-center gap-1'><div>Voted</div> <div><FontAwesomeIcon icon={faCheckCircle} /></div></div>
                               : selectedCandidate && selectedCandidate.role === role.position_id && selectedCandidate.candidate === candidate
                                 ? 'Vote'
                                 : 'Vote'}

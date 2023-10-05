@@ -4,6 +4,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClock } from "@fortawesome/free-solid-svg-icons"
 
+import { useGetVotingPeriodQuery } from '../tools/vote/VoteApiSlice';
+
 import LogoutButton from './LogoutButton';
 
 
