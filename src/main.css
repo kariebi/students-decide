@@ -3,6 +3,71 @@
 @import 'tailwindcss/utilities';
 
 
+/* Loader styling */
+
+@keyframes ballot {
+  0% {opacity: 0; transform: translateY(-15px)}
+  20% {opacity: 1; transform: translateY(0)}
+  100% {opacity: 1; transform: translateY(45px)}
+}
+.loader ul {
+  margin: 0 0 10px 0;
+  padding: 4px;
+  list-style: none;
+  width: 80px;
+  text-align: center;
+  animation: ballot 1.5s infinite ease-in;
+  animation-fill-mode: forwards;
+}
+.loader li {
+  display: inline-block;
+  background: #6AAD75;
+  height: 50px;
+  width: 40px;
+  border-radius: 6%;
+  /* transform: ; */
+}
+.loader li:after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 33px;
+  background: #007F00;
+  width: 22px;
+  height: 4px;
+  transform: rotate(130deg);
+  border-radius: 8%;
+}
+.loader li:before {
+  content: "";
+  position: absolute;
+  top: 31px;
+  left: 27px;
+  background: #007F00;
+  width: 13px;
+  height: 4px;
+  transform: rotate(45deg);
+  border-radius: 8%;
+}
+.ballotbox {
+  background: #007F00;
+  width: 90px;
+  height: 10px;
+  border-radius: 8%;
+  position: relative;
+}
+
+.loader span {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 5px;
+  background: #6AAD75;
+  width: 80px;
+  height: 20px;
+  border-radius: 8%;
+}
+
 .form-inp {
   padding: 11px;
   /* border: 1px solid #e3e3e3; */
@@ -39,7 +104,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #abb7c6;
+  background-color: #007F00;
   /* Set the color of the scrollbar thumb */
   border-radius: 4px;
   /* Optional: Round the corners of the thumb */
@@ -48,6 +113,7 @@
 ::-webkit-scrollbar-track {
   background-color: #f7fafc;
   /* Set the color of the scrollbar track */
+  border-radius: 4px;
 }
 
 

@@ -18,7 +18,7 @@ const DashNavbar = () => {
         <div className='container pb-4 bg-primary rounded-b-2xl'>
           <div className='h-20 w-full  flex items-center flex-row'>
             <nav className='flex items-center justify-start w-full px-3'>
-              <div className='w-[2.75rem] h-[2.75rem]  flex justify-center items-center rounded-full bg-black/90'>
+              <div className='w-[2.75rem] h-[2.75rem]  flex justify-center items-center rounded-full bg-faintgreen'>
                 <FontAwesomeIcon
                   icon={faUser}
                   size="lg"
@@ -35,11 +35,13 @@ const DashNavbar = () => {
           </div>
           {/* Voting Timer Component */}
           <div className='w-full bg-primary'>
-            <section className='rounded bg-red-800 text-white flex py-1 m-5 mt-0 items-center'>
+            <section className='rounded-xl bg-faintgreen text-black flex py-1 m-5 mt-0 items-center'>
               <aside className='px-2'>
                 <FontAwesomeIcon
                   icon={faClock}
-                  size="lg" />
+                  size="lg" 
+                    color='#000'
+                  />
               </aside>
               <div>
                 <h1 className='text-sm'>Voting Close:</h1>

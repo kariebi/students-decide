@@ -17,7 +17,7 @@ const Navbar = () => {
               '/UserDashboard'
               :
               '/SignIn'}
-            className='transition border-primary font-bold px-8 py-3 bg-black text-primary rounded-3xl border hover:border-primary hover:bg-black/60 hover:text-primary'>
+            className='transition border-primary text-sm font-bold px-8 py-3 bg-black text-primary rounded-3xl border hover:border-primary hover:bg-black/60 hover:text-primary'>
             {isLoggedIn ?
               'Dashboard'
               :

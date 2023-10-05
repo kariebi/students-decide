@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { PulseLoader } from 'react-spinners';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan } from '@fortawesome/free-solid-svg-icons';
+
 import { useGetVotingPeriodQuery } from '../tools/vote/VoteApiSlice';
-import { PulseLoader } from 'react-spinners';
 
 const ElectionStatus = () => {
   const { data: votingPeriod, isLoading } = useGetVotingPeriodQuery();
@@ -61,6 +64,7 @@ const ElectionStatus = () => {
 
   return (
     <div className='flex-grow w-full h-full flex flex-col'>
+    {/* Navbar */}
       <nav className='fixed z-40 flex flex-col w-full'>
         <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>

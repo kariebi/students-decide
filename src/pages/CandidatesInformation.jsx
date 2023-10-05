@@ -73,9 +73,9 @@ const CandidatesInformation = () => {
   }, []);
 
   return (
-    <div className='flex-grow w-full h-full flex flex-col'>
+    <div className='flex-grow w-full h-full flex flex-col bg-faintgreen/50'>
       {/* Navbar */}
-      <nav className='fixed z-40 flex flex-col w-full'>
+      <nav className='fixed z-40 flex flex-col w-full bg-faintgreen'>
         <section className='w-full flex justify-center text-center py-4 font-semibold bg-primary'>
           <div className='container'>
             <header className='flex w-full px-2 justify-center items-center'>
@@ -102,13 +102,13 @@ const CandidatesInformation = () => {
         {/* Role Selector */}
         <div
           id="roles-container"
-          className='flex gap-2 whitespace-nowrap p-2 overflow-x-scroll bg-white'
+          className='flex gap-2 whitespace-nowrap p-2 overflow-x-scroll'
           onWheel={handleRoleSelectorScroll}
           onTouchMove={handleRoleSelectorScroll}
           style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: '0', scrollbarColor: 'transparent transparent' }}>
           <div
             onClick={() => handleRoleSelect('All')}
-            className={`px-6 text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary text-white' : 'bg-gray-300'}`}
+            className={`px-6 text-white text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary ' : 'bg-primaryblue/80'}`}
           >
             All
           </div>
@@ -116,7 +116,7 @@ const CandidatesInformation = () => {
             <div
               key={role.name}
               onClick={() => handleRoleSelect(role.name)}
-              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2 ${selectedRole === role.name ? 'bg-primary text-white' : 'bg-gray-300'}`}
+              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2 text-white ${selectedRole === role.name ? 'bg-primary' : 'bg-primaryblue/80'}`}
             >
               {role.name}
             </div>
@@ -138,13 +138,13 @@ const CandidatesInformation = () => {
               role.candidates.length > 0 && (
                 <div key={role.name} className='mb-0'>
                   <h2 className='text-2xl ml-2 font-semibold'>{role.name}</h2>
-                  <hr className='border border-gray-300 my-1' />
+                  <hr className='border border-primaryorange/20 my-1' />
                   <div className='flex flex-wrap'>
                     {role.candidates.map(candidate => (
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
-                          className='border flex flex-col border-gray-300 justify-center text-center p-4 rounded-md relative'
+                          className='border flex flex-col border-primaryorange/20 justify-center text-center p-4 rounded-md relative'
                           style={{
                             backgroundImage: candidate.image,
                             backgroundColor: candidate.image ? 'transparent' : '#C8E6C9',
@@ -154,7 +154,7 @@ const CandidatesInformation = () => {
                           <p><b>Role:</b> {role.name}</p>
                           <p><b>Total Votes:</b> {candidate.total_votes}</p>
                           <button
-                            className='bg-primary/90 text-white px-2 py-1 mt-2 rounded-md'
+                            className='bg-primary/90 text-white px-2 py-1 mt-2 rounded-md transition hover:bg-primaryblue'
                             onClick={() => handleDetailsClick(role.name, candidate)}
                           >
                             Details
@@ -167,7 +167,7 @@ const CandidatesInformation = () => {
                             className='fixed inset-0 z-50 backdrop-blur bg-black bg-opacity-50 flex items-center justify-center'
                             onClick={handleCloseDetails} // Close the modal when the dark area is clicked
                           >
-                            <div className='bg-white p-4 max-w-md mx-auto rounded-md' onClick={(e) => e.stopPropagation()}>
+                            <div className='bg-faintgreen p-4 sm:max-w-md mx-auto rounded-md w-[95%]' onClick={(e) => e.stopPropagation()}>
                               {/* Stop propagation to prevent the modal from closing when clicked inside */}
                               <p className='font-bold text-2xl'>{selectedCandidate.name}</p>
                               <p><b>Role:</b> {selectedRoleForModal}</p>
@@ -176,7 +176,7 @@ const CandidatesInformation = () => {
                                 <p className='text-sm'>{selectedCandidate.manifesto}</p>
                               </section>
                               <button
-                                className='bg-primary text-white px-2 py-1 rounded-md mt-2'
+                                className='bg-primary text-white px-2 py-1 rounded-md mt-2 hover:bg-primaryorange'
                                 onClick={handleCloseDetails}
                               >
                                 Close

@@ -70,7 +70,9 @@ const TopCandidates = () => {
   return (
     <div id="top-candidates-container" className='w-full h-full overflow-x-scroll flex items-center'>
       {isLoading ? (
-        <PulseLoader size={5} color={"#22C55E"} />
+        <div className='w-full justify-center'>
+          <PulseLoader size={7} color={"#007F00"} />
+        </div>
       ) : (
         <div className="flex flex-row">
           {/* Render your candidate data here */}
