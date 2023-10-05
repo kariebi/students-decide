@@ -144,7 +144,7 @@ const CandidatesInformation = () => {
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
-                          className='flex flex-col bg-faintgreen  justify-center text-center p-4 rounded-md relative'
+                          className='flex flex-col bg-faintgreen hover:bg-primaryblue/30 hover:scale-[0.95] transition duration-500  justify-center text-center p-4 rounded-md relative'
                           style={{
                             backgroundImage: candidate.image,
                             // backgroundColor: '#C8E6C9',
