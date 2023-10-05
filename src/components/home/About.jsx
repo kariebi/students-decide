@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const About = () => {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
-    <div className='container mx-auto mt-8 mb-8 text-primary'>
+    <div data-aos="fade-up" className='container mx-auto px-2 mt-8 mb-8 text-primary'>
       <h1 className='text-3xl font-semibold w-full text-center mb-4'>About Student Dictates</h1>
       <p className='mb-4'>
         Welcome to Student Dictates, the platform designed to empower students by giving them a voice

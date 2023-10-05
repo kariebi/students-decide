@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Link } from 'react-router-dom';
+
 
 import Lottie from 'react-lottie';
 import animationData from '../../assets/voting animation.json';
@@ -17,6 +20,15 @@ const Hero = () => {
       preserveAspectRatio: "xMidYMid slice"
     }
   };
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: false,
+    });
+    AOS.refresh();
+  }, []);
+
   return (
     <div className='flex flex-col items-center justify-center flex-grow h-full w-full pt-20'>
       <Lottie
