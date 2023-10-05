@@ -7,7 +7,6 @@ import useTitle from '../hooks/useTitle'
 
 import TopCandidates from '../components/TopCandidates'
 import DashNavbar from '../components/DashNavbar'
-import Footer from '../components/home/Footer'
 
 
 const UserDashboard = () => {
@@ -85,9 +84,6 @@ const UserDashboard = () => {
         >
           Monitor Election
         </Link>
-      </div>
-      <div className='mt-auto w-full'>
-      <Footer/>
       </div>
     </div>
   )
