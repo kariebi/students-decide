@@ -9,7 +9,7 @@ const Footer = () => {
     <div className='w-full bg-primary text-white flex flex-col justify-center items-center pb-1'>
       <hr className='border border-primary w-full' />
       <p className=' pt-1'>
-        Student Dictates<sup>&copy;</sup>2023
+        Student Decides<sup>&copy;</sup>2023
       </p>
       <Link 
       to="https://github.com/Ulpha-Deep-Labs/unievotingfrontend"

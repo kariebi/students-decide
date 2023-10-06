@@ -146,6 +146,7 @@ const CandidatesInformation = () => {
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
+                        onClick={() => handleDetailsClick(role.name, candidate)}
                           className='flex flex-col bg-faintgreen hover:bg-primaryblue/80 hover:text-white hover:scale-[0.95] transition duration-500 bg-cover bg-center   justify-center text-center p-4 rounded-md relative'
                           style={{
                             backgroundImage: candidate.image ? `url(${BASE_URL}${candidate.image})` : 'none',
@@ -190,7 +191,7 @@ const CandidatesInformation = () => {
                                 </div>
                               )}
                               <p className='font-bold text-2xl'>{selectedCandidate.name}</p>
-                              <p><b>Role:</b> {selectedRoleForModal}</p>
+                              <p><b>Position:</b> {selectedRoleForModal}</p>
                               <b>Manifesto:</b>
                               <section className="max-h-[70vh] overflow-x-auto">
                                 <p className='text-sm'>{selectedCandidate.manifesto}</p>
