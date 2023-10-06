@@ -8,8 +8,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 
 import { useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
 
-import { BASE_URL } from '../../constants'
-
+import { BASE_URL } from '../../constants';
 
 const Vote = () => {
   const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
@@ -19,9 +18,11 @@ const Vote = () => {
   const [votedCandidates, setVotedCandidates] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [ShowState, setShowState] = useState(false);
+  const [errorType, setErrorType] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [postVotesMutation] = usePostFacultyVotesMutation();
-
+  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -74,28 +75,45 @@ const Vote = () => {
       setIsSubmitting(true);
 
       try {
-        // Extracting only candidate IDs for submission
         const voteData = votedCandidates.map((vote) => ({
           position_id: vote.role,
           candidate_id: vote.candidate.id,
         }));
 
         console.log(JSON.stringify({ votes: voteData }));
-        await postVotesMutation(JSON.stringify({ votes: voteData }));
+        await postVotesMutation(voteData).unwrap()
 
         // Clear voted candidates after successful submission
         setVotedCandidates([]);
-        setShowSuccess(true);
+        setShowState(true);
+
+        // Hide state message after 2 seconds
+        setTimeout(() => {
+          setShowState(false);
+          setShowConfirmation(false);
+        }, 3000);
+      } catch (error) {
+        console.error('Error submitting votes:', error.data.message);
+        console.log(error);
+        setErrorType(true);
+
+        if (error.status === 400) {
+          setErrorMessage(`${error.data.message}`);
+        } else if (error.status === 401) {
+          setErrorMessage('Unauthorized. Please log in and try again.');
+        } else {
+          setErrorMessage(`Error submitting votes. Please try again. Status: ${error.status}`);
+        }
+
+        // Display the error message
+        setShowState(true); // Hide success message
+        setShowConfirmation(true);
 
         // Hide success message after 2 seconds
         setTimeout(() => {
-          setShowSuccess(false);
+          setShowState(false);
           setShowConfirmation(false);
         }, 2500);
-      } catch (error) {
-        console.error('Error submitting votes:', error.message);
-        console.log(error);
-        // Handle error, show user a message, etc.
       } finally {
         setIsSubmitting(false);
       }
@@ -240,7 +258,8 @@ const Vote = () => {
                         >
                           <div
                             className={`absolute inset-0 shadow-inner rounded-md 
-                        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-green-900/70 '}`}
+                        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-green-900/70 '}
+                        `}
                           ></div>
                           <p className='font-bold z-10'>{candidate.name}</p>
                           <p className='z-10'>
@@ -279,31 +298,36 @@ const Vote = () => {
         {/* Vote Submission Component */}
         {showConfirmation && (
           <div className='fixed flex items-center justify-center h-screen w-screen z-50 top-0 p-4 backdrop-blur-md '>
-            <div className='bg-faintgreen rounded-md max-w-[400px] text-center'>
+            <div className={`text-black bg-faintgreen rounded-md max-w-[400px] text-center`}>
               <div>
                 <div className='cursor-pointer px-1.5 pt-1 flex justify-end' onClick={handleConfirmation(false)}>
-                  <FontAwesomeIcon
-                    icon={faClose} />
+                  <FontAwesomeIcon icon={faClose} />
                 </div>
               </div>
-              <div className='flex flex-col p-4 pt-0'>
-                <p>You have only voted in the categories you have selected. Are you sure you want to submit? <br /> <b className='uppercase text-sm'>You can only vote once</b></p>
-
+              <div className='flex z-50 flex-col p-4 pt-0'>
+                <p>
+                  You have only voted in the categories you have selected. Are you sure you want to submit?
+                  <br />
+                  <b className='uppercase text-sm '>You can only vote once</b>
+                </p>
                 <div className='flex justify-center mt-4'>
-                  {isSubmitting ?
-                    <PulseLoader
-                      size={5}
-                      color='#007F00'
-                    />
-                    :
+                  {isSubmitting ? (
+                    <PulseLoader size={5} color='#007F00' />
+                  ) : (
                     <>
-                      {showSuccess ?
+                      {ShowState ? (
                         <div className='flex justify-center'>
-                          <div className='bg-primary text-white p-2 rounded-md max-w-[400px] text-center'>
-                            <p>Votes submitted successfully!</p>
-                          </div>
+                          {errorType ? (
+                            <div className='bg-warningred text-white p-2 rounded-md max-w-[400px] text-center'>
+                              <p>{errorMessage}</p>
+                            </div>
+                          ) : (
+                            <div className='bg-primary text-white p-2 rounded-md max-w-[400px] text-center'>
+                              <p>Votes submitted successfully!</p>
+                            </div>
+                          )}
                         </div>
-                        :
+                      ) : (
                         <>
                           <button
                             className='bg-primary transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-white px-4 py-2 rounded-md mr-2'
@@ -318,16 +342,15 @@ const Vote = () => {
                             No
                           </button>
                         </>
-                      }
+                      )}
                     </>
-                  }
+                  )}
                 </div>
               </div>
-
             </div>
           </div>
         )}
-        {!showConfirmation && !showSuccess && (
+        {!showConfirmation && !ShowState && (
           <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4 z-30 backdrop-blur-md '>
             <button
               className={`bg-primary w-[96%] max-w-[400px] text-white px-4 py-2 rounded-md ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''

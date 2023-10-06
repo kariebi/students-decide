@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { 
+import {
   useNavigate,
   //  Link 
-  } from 'react-router-dom'
+} from 'react-router-dom'
 import PulseLoader from 'react-spinners/PulseLoader'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -96,13 +96,15 @@ const SignIn = () => {
       <div className={errMsg ? 'w-full absolute top-0 py-2 bg-black/70' : "hidden"}>
         <p ref={errRef} className={errMsg ? " w-full text-center font-bold text-red-500 text-sm" : "hidden"} aria-live="assertive">{errMsg}</p>
       </div>
-      <section className='bg-primary rounded-3xl max-w-[300px] w-[95%] min-h-[300px] p-5 shadow-lg'>
+      <section className='bg-black/90 rounded-3xl max-w-[300px] w-[95%] min-h-[300px] p-5 shadow-lg'>
         <div className="">
           <form className="form" onSubmit={AttemptLogin}>
             <div className=" relative max-w-[230px] mx-auto">
               <div className="welcome-lines text-center leading-tight">
-                <div className="welcome-line-1 text-green-500 font-semibold text-4xl">UEV</div>
-                <div className="welcome-line-2 text-white text-lg mt-3">Welcome Back</div>
+                <div className="welcome-line-1 text-green-500 font-semibold text-4xl">
+                  SD
+                </div>
+                <div className="welcome-line-2 text-white text-lg mt-3">Welcome</div>
               </div>
               <div className="mt-10 space-y-5">
                 <div className="form-inp bg-black/70 w-full">
