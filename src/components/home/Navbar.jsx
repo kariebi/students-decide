@@ -11,7 +11,7 @@ const Navbar = () => {
     <div className='flex flex-col fixed w-full z-50'>
       <div className='h-20 w-full backdrop-blur-md  flex items-center flex-row'>
         <nav className='flex items-center justify-between w-full px-3'>
-          <p>Logo</p>
+          <p className='text-4xl font-semibold text-primary'>SD</p>
           <Link
             to={isLoggedIn ?
               '/UserDashboard'

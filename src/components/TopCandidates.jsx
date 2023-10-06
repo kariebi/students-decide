@@ -84,7 +84,7 @@ const TopCandidates = () => {
           {/* Render your candidate data here */}
           {roles && roles.map(role => (
             role.candidates && role.candidates.length > 0 && (
-              <div key={role.name} className="mb-2 pl-2 flex flex-row justify-center items-center flex-shrink-0 gap-2">
+              <div key={role.name} className="mb-2 px-2 flex flex-row justify-center items-center flex-shrink-0 gap-2">
                 {role.candidates.map(candidate => (
                   <div key={candidate.name} className="mb-2 p-2 rounded-xl bg-primary text-white flex flex-col justify-center items-center">
                     {candidate.image ? (

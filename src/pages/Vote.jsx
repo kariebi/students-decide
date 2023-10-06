@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan, faSearch, faCheckCircle, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faSearch, faCheckCircle, faUser, faClose } from '@fortawesome/free-solid-svg-icons';
 
 import PulseLoader from 'react-spinners/PulseLoader';
 
@@ -22,7 +22,7 @@ const Vote = () => {
   const [errorType, setErrorType] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [postVotesMutation] = usePostFacultyVotesMutation();
-  
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -80,7 +80,7 @@ const Vote = () => {
           candidate_id: vote.candidate.id,
         }));
 
-        console.log(JSON.stringify({ votes: voteData }));
+        // console.log(JSON.stringify({ votes: voteData }));
         await postVotesMutation(voteData).unwrap()
 
         // Clear voted candidates after successful submission
@@ -247,40 +247,46 @@ const Vote = () => {
                         {/* Candidate Card */}
                         <div
                           className={`
-          flex flex-col  justify-center text-center p-4 rounded-md bg-cover bg-center hover:scale-[0.95] transition duration-500  relative
-    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-black' : ' text-white'}
+          flex flex-col items-center justify-center text-center p-4 rounded-md hover:scale-[0.95] transition duration-500  relative
+    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-black bg-primaryblue/80' : ' text-white bg-faintgreen/90'}
         
       `}
-                          style={{
-                            backgroundImage: candidate.image ? `url(${BASE_URL}${candidate.image})` : 'none',
-                          }}
                           onClick={() => handleVoteClick(role, candidate)}
                         >
-                          <div
-                            className={`absolute inset-0 shadow-inner rounded-md 
-                        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-green-900/70 '}
+                          {candidate.image ? (
+                            <img
+                              src={`${BASE_URL}${candidate.image}`}
+                              alt={candidate.name}
+                              className="w-12 h-12 rounded-full object-cover "
+                            />
+                          ) : (
+                            <div
+                              className={`w-12 h-12 rounded-full  flex justify-center items-center ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70 text-black/40' : 'bg-primary/50 text-white/50'}
                         `}
-                          ></div>
+                            >
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                size="lg"/>
+                            </div>
+                          )}
                           <p className='font-bold z-10'>{candidate.name}</p>
                           <p className='z-10'>
                             <b>Position:</b> {role.name}
                           </p>
-                          <p className='z-10'>
-                            <b>Total Votes:</b> {candidate.total_votes}
-                          </p>
                           <button
                             className={`
-     px-2 py-1 mt-2 rounded-md z-10
+     px-2 py-1 mt-2 w-[95%] rounded-md z-10
     ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue cursor-not-allowed text-black shadow-inner' : ' text-white bg-primary/90 shadow-lg'}
   `}
                             onClick={() => handleVoteClick(role, candidate)}
                             disabled={votedCandidates.some((voted) => role.position_id === voted.role && voted.candidate === candidate)}
                           >
                             {votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate)
-                              ? <div className='flex justify-center gap-1'><div>Voted</div> <div><FontAwesomeIcon icon={faCheckCircle} /></div></div>
-                              : selectedCandidate && selectedCandidate.role === role.position_id && selectedCandidate.candidate === candidate
-                                ? 'Vote'
-                                : 'Vote'}
+                              ? <div className='flex justify-center gap-1'>
+                                <div>Voted</div>
+                                <div><FontAwesomeIcon icon={faCheckCircle} /></div>
+                              </div>
+                              :  'Vote'}
                           </button>
                         </div>
                       </div>
