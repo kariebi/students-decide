@@ -34,7 +34,7 @@ const Hero = () => {
       <Lottie
         options={defaultOptions}
         height={400}
-        width={400}
+        width={380}
       />
       <div className='w-full flex justify-center items-center mt-5'>
         {

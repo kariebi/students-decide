@@ -8,6 +8,9 @@ import PulseLoader from 'react-spinners/PulseLoader';
 
 import { useGetFacultyVotesQuery, usePostFacultyVotesMutation } from '../tools/vote/VoteApiSlice';
 
+import { BASE_URL } from '../../constants'
+
+
 const Vote = () => {
   const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
   const [searchTerm, setSearchTerm] = useState('');
@@ -226,25 +229,29 @@ const Vote = () => {
                         {/* Candidate Card */}
                         <div
                           className={`
-          flex flex-col  justify-center text-center p-4 rounded-md hover:scale-[0.95] transition duration-500  relative
-        ${selectedCandidate === candidate ? 'text-white' : ''}
-        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-faintgreen '}
+          flex flex-col  justify-center text-center p-4 rounded-md bg-cover bg-center hover:scale-[0.95] transition duration-500  relative
+    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-black' : ' text-white'}
+        
       `}
                           style={{
-                            backgroundImage: candidate.image,
+                            backgroundImage: candidate.image ? `url(${BASE_URL}${candidate.image})` : 'none',
                           }}
                           onClick={() => handleVoteClick(role, candidate)}
                         >
-                          <p className='font-bold'>{candidate.name}</p>
-                          <p>
-                            <b>Role:</b> {role.name}
+                          <div
+                            className={`absolute inset-0 shadow-inner rounded-md 
+                        ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70' : 'bg-green-900/70 '}`}
+                          ></div>
+                          <p className='font-bold z-10'>{candidate.name}</p>
+                          <p className='z-10'>
+                            <b>Position:</b> {role.name}
                           </p>
-                          <p>
+                          <p className='z-10'>
                             <b>Total Votes:</b> {candidate.total_votes}
                           </p>
                           <button
                             className={`
-     px-2 py-1 mt-2 rounded-md
+     px-2 py-1 mt-2 rounded-md z-10
     ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue cursor-not-allowed text-black shadow-inner' : ' text-white bg-primary/90 shadow-lg'}
   `}
                             onClick={() => handleVoteClick(role, candidate)}
@@ -271,7 +278,7 @@ const Vote = () => {
         </div>
         {/* Vote Submission Component */}
         {showConfirmation && (
-          <div className='fixed flex items-center justify-center h-screen z-50 top-0 p-4 backdrop-blur-md '>
+          <div className='fixed flex items-center justify-center h-screen w-screen z-50 top-0 p-4 backdrop-blur-md '>
             <div className='bg-faintgreen rounded-md max-w-[400px] text-center'>
               <div>
                 <div className='cursor-pointer px-1.5 pt-1 flex justify-end' onClick={handleConfirmation(false)}>
@@ -290,30 +297,30 @@ const Vote = () => {
                     />
                     :
                     <>
-                      {showSuccess ? 
+                      {showSuccess ?
                         <div className='flex justify-center'>
                           <div className='bg-primary text-white p-2 rounded-md max-w-[400px] text-center'>
                             <p>Votes submitted successfully!</p>
                           </div>
                         </div>
-                      :
-                      <>
-                        <button
-                          className='bg-primary transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-white px-4 py-2 rounded-md mr-2'
-                          onClick={handleConfirmation(true)}
-                        >
-                          Yes
-                        </button>
-                        <button
-                          className='bg-gray-300 transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-black px-4 py-2 rounded-md ml-2'
-                          onClick={handleConfirmation(false)}
-                        >
-                          No
-                        </button>
-                      </>
+                        :
+                        <>
+                          <button
+                            className='bg-primary transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-white px-4 py-2 rounded-md mr-2'
+                            onClick={handleConfirmation(true)}
+                          >
+                            Yes
+                          </button>
+                          <button
+                            className='bg-gray-300 transition duration-300 hover:text-white hover:bg-primaryblue w-1/2 text-black px-4 py-2 rounded-md ml-2'
+                            onClick={handleConfirmation(false)}
+                          >
+                            No
+                          </button>
+                        </>
                       }
                     </>
-                    }
+                  }
                 </div>
               </div>
 
@@ -321,7 +328,7 @@ const Vote = () => {
           </div>
         )}
         {!showConfirmation && !showSuccess && (
-          <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4 backdrop-blur-md '>
+          <div className='fixed flex justify-center bottom-0 left-0 right-0 p-4 z-30 backdrop-blur-md '>
             <button
               className={`bg-primary w-[96%] max-w-[400px] text-white px-4 py-2 rounded-md ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}

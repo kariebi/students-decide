@@ -4,6 +4,12 @@ import { setCredentials } from '../tools/vote/VoteSlice';
 import { useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
 import { PulseLoader } from 'react-spinners';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+import { BASE_URL } from '../../constants'
+
+
 const TopCandidates = () => {
   const dispatch = useDispatch();
   const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
@@ -83,15 +89,19 @@ const TopCandidates = () => {
                   <div key={candidate.name} className="mb-2 p-2 rounded-xl bg-primary text-white flex flex-col justify-center items-center">
                     {candidate.image ? (
                       <img
-                        src={candidate.image}
+                        src={`${BASE_URL}${candidate.image}`}
                         alt={candidate.name}
                         className="w-12 h-12 rounded-full object-cover "
                       />
                     ) : (
                       <div
-                        className="w-12 h-12 rounded-full bg-gray-300 "
-                      // Add styles for circle shape
-                      ></div>
+                        className="w-12 h-12 rounded-full bg-faintgreen flex justify-center items-center"
+                      >
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          size="lg"
+                          style={{ color: "#007f00" }} />
+                      </div>
                     )}
                     <div>
                       <h3 className="text-sm font-semibold">{candidate.name}</h3>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
+
+import { BASE_URL } from '../../constants'
 
 const CandidatesInformation = () => {
   const { data: roles, isLoading, isError, error } = useGetFacultyVotesQuery();
@@ -144,17 +146,19 @@ const CandidatesInformation = () => {
                       <div key={candidate.name} className='w-1/2 sm:w-1/3 lg:w-1/4 p-2'>
                         {/* Candidate Card */}
                         <div
-                          className='flex flex-col bg-faintgreen hover:bg-primaryblue/30 hover:scale-[0.95] transition duration-500  justify-center text-center p-4 rounded-md relative'
+                          className='flex flex-col bg-faintgreen hover:bg-primaryblue/80 hover:text-white hover:scale-[0.95] transition duration-500 bg-cover bg-center   justify-center text-center p-4 rounded-md relative'
                           style={{
-                            backgroundImage: candidate.image,
-                            // backgroundColor: '#C8E6C9',
+                            backgroundImage: candidate.image ? `url(${BASE_URL}${candidate.image})` : 'none',
                           }}
                         >
-                          <p className='font-bold'>{candidate.name}</p>
-                          <p><b>Role:</b> {role.name}</p>
-                          <p><b>Total Votes:</b> {candidate.total_votes}</p>
+                        <div
+                            className={`absolute inset-0 shadow-inner rounded-md bg-green-900/70`}
+                          ></div>
+                          <p className='font-bold z-10'>{candidate.name}</p>
+                          <p className='z-10'><b>Position:</b> {role.name}</p>
+                          <p className='z-10'><b>Total Votes:</b> {candidate.total_votes}</p>
                           <button
-                            className='bg-primary/90 text-white px-2 py-1 mt-2 rounded-md transition hover:bg-primaryblue'
+                            className='bg-primary/90 z-10 text-white px-2 py-1 mt-2 rounded-md transition hover:bg-primaryblue'
                             onClick={() => handleDetailsClick(role.name, candidate)}
                           >
                             Details
@@ -169,6 +173,22 @@ const CandidatesInformation = () => {
                           >
                             <div className='bg-faintgreen p-4 sm:max-w-md mx-auto rounded-md w-[95%]' onClick={(e) => e.stopPropagation()}>
                               {/* Stop propagation to prevent the modal from closing when clicked inside */}
+                              {candidate.image ? (
+                                <img
+                                  src={`${BASE_URL}${candidate.image}`}
+                                  alt={candidate.name}
+                                  className="w-12 h-12 rounded-full object-cover "
+                                />
+                              ) : (
+                                <div
+                                  className="w-12 h-12 rounded-full bg-black/10 flex justify-center items-center"
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faUser}
+                                    size="lg"
+                                    style={{ color: "#007f00" }} />
+                                </div>
+                              )}
                               <p className='font-bold text-2xl'>{selectedCandidate.name}</p>
                               <p><b>Role:</b> {selectedRoleForModal}</p>
                               <b>Manifesto:</b>

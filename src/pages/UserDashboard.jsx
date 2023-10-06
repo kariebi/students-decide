@@ -12,7 +12,7 @@ import DashNavbar from '../components/DashNavbar'
 const UserDashboard = () => {
 
   const registrationNumber = localStorage.getItem('registrationNumber')
-  useTitle(`Student Dictactes: ${registrationNumber}`)
+  useTitle(`Students Decide|${registrationNumber}`)
 
   return (
     <div className='flex-grow w-full h-full min-h-screen pb-2 flex flex-col bg-faintgreen/40 items-center'>

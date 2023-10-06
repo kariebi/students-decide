@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 import Loader from "../components/Loader";
 import { useGetVotingPeriodQuery, useGetFacultyVotesQuery } from '../tools/vote/VoteApiSlice';
+
+import { BASE_URL } from '../../constants'
 
 const ElectionStatus = () => {
   const { data: votingPeriod, isLoading: votingPeriodLoading } = useGetVotingPeriodQuery();
@@ -118,23 +121,32 @@ const ElectionStatus = () => {
           ) : (
             <div className='flex flex-col mt-8 w-full justify-center items-center'>
               {facultyVotes?.map((position) => (
-                <Link 
-                to='/candidatesinformation'
-                key={position.position_id} 
-                className='bg-faintgreen/30 hover:scale-[0.95] transition duration-500 p-4 w-full rounded-md shadow-md m-4'>
+                <Link
+                  to='/candidatesinformation'
+                  key={position.position_id}
+                  className='bg-faintgreen/30 hover:scale-[0.95] transition duration-500 p-4 w-full rounded-md shadow-md m-4'>
                   <h2 className='text-lg font-semibold'>{position.name}</h2>
                   <hr className='border-t border-gray-300 my-2' />
                   <div className='space-y-2'>
                     {position.candidates.map((candidate) => (
                       <div key={candidate.id} className='flex items-center gap-2'>
                         <div className='w-10 h-10 rounded-full bg-faintgreen'>
-                          {candidate.image && (
+                          {candidate.image ?
                             <img
-                              src={candidate.image}
+                              src={`${BASE_URL}${candidate.image}`}
                               alt={candidate.name}
                               className='w-10 h-10 object-cover rounded-full'
                             />
-                          )}
+                            :
+                            <div
+                              className="w-10 h-10 rounded-full bg-faintgreen flex justify-center items-center"
+                            >
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                size="lg"
+                                style={{ color: "#007f00" }} />
+                            </div>
+                          }
                         </div>
 
                         <div className='flex-grow'>

@@ -1,18 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // import { setCredentials } from '../../tools/auth/authSlice'
-
+import { BASE_URL } from '../../../constants'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://futoevoting.pythonanywhere.com/',
+    baseUrl: `${BASE_URL}`,
     credentials: 'include',
     prepareHeaders: (
-        headers, 
+        headers,
         // { getState }
-        ) => {
+    ) => {
         const token = localStorage.getItem('token') //getState().auth.token
         headers.set("accept", "application/json");
         if (token) {
-            headers.set("Authorization",`Token ${token}`)
+            headers.set("Authorization", `Token ${token}`)
         }
         return headers
     }

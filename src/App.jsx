@@ -29,6 +29,7 @@ function App() {
           <Route index element={<Suspense fallback={<Loader />}><Home /></Suspense>} />
           <Route path='*' element={<Missing />} />
           <Route path='signin' element={<SignIn />} />
+          {/* <Route path='loader' element={<Loader/>}/> */}
           <Route path='passwordrecovery' element={<PasswordRecovery />} />
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
