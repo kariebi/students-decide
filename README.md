@@ -1,6 +1,6 @@
-# Student Decides: University E-Voting Portal
+# students decide: University E-Voting Portal
 
-Welcome to **Student Decides**, your university's advanced and user-friendly E-Voting platform! This platform is designed to empower students and streamline the voting process for various university-related activities, including departmental representatives, student union government elections, and other important decision-making events.
+Welcome to **students decide**, your university's advanced and user-friendly E-Voting platform! This platform is designed to empower students and streamline the voting process for various university-related activities, including departmental representatives, student union government elections, and other important decision-making events.
 
 ## Features
 
@@ -52,4 +52,4 @@ Welcome to **Student Decides**, your university's advanced and user-friendly E-V
 [<img src="https://github.com/kariebi.png" width="50">](https://github.com/kariebi)
 <!-- Add more contributor images as needed -->
 
-We're excited to bring you **Student Decides**, the ultimate platform for student participation and engagement. Let your voice be heard, and together, let's shape the future of our university!
+We're excited to bring you **students decide**, the ultimate platform for student participation and engagement. Let your voice be heard, and together, let's shape the future of our university!
