@@ -257,7 +257,8 @@ const Vote = () => {
                             <img
                               src={`${BASE_URL}${candidate.image}`}
                               alt={candidate.name}
-                              className="w-12 h-12 rounded-full object-cover "
+                              className={`w-12 h-12 rounded-full  flex justify-center items-center object-cover ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70 text-black/40' : 'bg-primary/50 text-white/50'}
+                        `}
                             />
                           ) : (
                             <div

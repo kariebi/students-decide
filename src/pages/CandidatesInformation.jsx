@@ -147,7 +147,7 @@ const CandidatesInformation = () => {
                         {/* Candidate Card */}
                         <div
                         onClick={() => handleDetailsClick(role.name, candidate)}
-                          className='flex flex-col bg-faintgreen hover:bg-primaryblue/80 hover:text-white hover:scale-[0.95] transition duration-500 bg-cover bg-center   justify-center text-center p-4 rounded-md relative'
+                          className='flex flex-col bg-faintgreen hover:bg-primaryblue/80 text-white  hover:scale-[0.95] transition duration-500 bg-cover bg-center   justify-center text-center p-4 rounded-md relative'
                           style={{
                             backgroundImage: candidate.image ? `url(${BASE_URL}${candidate.image})` : 'none',
                           }}
@@ -178,7 +178,7 @@ const CandidatesInformation = () => {
                                 <img
                                   src={`${BASE_URL}${candidate.image}`}
                                   alt={candidate.name}
-                                  className="w-12 h-12 rounded-full object-cover "
+                                  className="w-12 h-12 rounded-full object-cover bg-black/10"
                                 />
                               ) : (
                                 <div
