@@ -99,7 +99,7 @@ const SignIn = () => {
       <div className={errMsg ? 'w-full absolute top-0 py-2 bg-black/70' : "hidden"}>
         <p ref={errRef} className={errMsg ? " w-full text-center font-bold text-red-500 text-sm" : "hidden"} aria-live="assertive">{errMsg}</p>
       </div>
-      <section className='bg-black/90 rounded-3xl max-w-[300px] w-[95%] min-h-[300px] p-5 shadow-lg'>
+      <section className='bg-black/80 rounded-3xl max-w-[300px] w-[95%] min-h-[300px] p-5 shadow-lg'>
         <div className="">
           <form className="form" onSubmit={AttemptLogin}>
             <div className=" relative max-w-[230px] mx-auto">
