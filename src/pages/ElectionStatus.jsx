@@ -14,7 +14,7 @@ import { BASE_URL } from '../../constants'
 
 const ElectionStatus = () => {
   const { data: votingPeriod, isLoading: votingPeriodLoading } = useGetVotingPeriodQuery();
-  const { data: facultyVotes, isLoading: facultyVotesLoading, isError: facultyVotesError } = useGetFacultyVotesQuery();
+  const { data: facultyVotes, isLoading: facultyVotesLoading, isError: facultyVotesError, refetch: refetchFacultyVotes } = useGetFacultyVotesQuery();
 
   const [electionStatus, setElectionStatus] = useState(null);
   const [days, setDays] = useState(0);
@@ -66,6 +66,16 @@ const ElectionStatus = () => {
       return () => clearInterval(intervalId);
     }
   }, [votingPeriod, votingPeriodLoading]);
+
+  // Set up polling for facultyVotes
+  useEffect(() => {
+    const pollingInterval = setInterval(() => {
+      refetchFacultyVotes(); // This will trigger a refetch of facultyVotes
+    }, 10000); // Update every 10 seconds
+
+    // Cleanup: clear the interval when the component unmounts
+    return () => clearInterval(pollingInterval);
+  }, [refetchFacultyVotes]);
 
   if (votingPeriodLoading || facultyVotesLoading) {
     // If either of the queries is loading, display the Loader component

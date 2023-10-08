@@ -23,51 +23,56 @@ const SignIn = () => {
   const [passwordFilled, setpasswordFilled] = useState(false);
   const [RegistrationNumberFilled, setRegistrationNumberFilled] = useState(false);
   const [RegistrationNumber, setRegistrationNumber] = useState('');
-  const [Password, setPassword] = useState('')
-  const [PasswordVisible, setPasswordVisibility] = useState(false)
+  const [Password, setPassword] = useState('');
   // const [persist, setPersist] = usePersist()
-  const userRef = useRef()
-  const errRef = useRef()
-  const [errMsg, setErrMsg] = useState('')
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [PasswordVisible, setPasswordVisibility] = useState(false);
+  const [checkedstate,setcheckedstate]=useState(false)
+  const [token, settoken] = useState(true); // Changed default value
+  const [errMsg, setErrMsg] = useState('');
 
-  const [login, { isLoading }] = useLoginMutation()
-  // const { isLoggedIn } = useAuth()
+  const userRef = useRef();
+  const errRef = useRef();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+    // const { isLoggedIn } = useAuth()
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const HandlePasswordVisibility = () => {
-    setPasswordVisibility(!PasswordVisible)
-  }
+    setPasswordVisibility(!PasswordVisible);
+    // console.log(PasswordVisible);
+  };
 
-  // const handleToggle = () => setPersist(prev => !prev)
+  const ToggleSubmissionItem = () => {
+    settoken(!token)
+    setcheckedstate(!checkedstate)
+    // console.log(token)
+    // console.log(checkedstate)
+  };
 
   const AttemptLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const response = await login({ 'reg_no': RegistrationNumber, 'password': Password }).unwrap()
+      const response = await login({ 'reg_no': RegistrationNumber, [token? 'token':'password']: Password }).unwrap();
       dispatch(setCredentials({ accessToken: response.token, registrationNumber: RegistrationNumber, isLoggedIn: true }));
-      // console.log(response.token)
-      // console.log(isLoggedIn)
       localStorage.setItem('token', response.token);
       localStorage.setItem('isLoggedIn', true);
       localStorage.setItem('registrationNumber', RegistrationNumber);
-      setRegistrationNumber('') // Clear the fields
-      setPassword('')
-      setErrMsg('') // Clear any previous error messages
-      navigate('/userdashboard')
+      setRegistrationNumber('');
+      setPassword('');
+      setErrMsg('');
+      navigate('/userdashboard');
     } catch (err) {
-      // console.log(err)
-      // console.log(err.status)
       if (!err.status) {
         setErrMsg('No Server Response');
       } else if (err.status === 400) {
         setErrMsg('Incorrect Username or Password');
       } else if (err.status === 401) {
         setErrMsg('Unauthorized');
-      } else if (err.status == 500) {
+      } else if (err.status === 500) {
         setErrMsg('Server-Side Error');
-        console.log('Server-Side Error')
       } else {
         setErrMsg(err.data?.message);
       }
@@ -76,7 +81,7 @@ const SignIn = () => {
       }
       errRef.current.focus();
     }
-  }
+  };
 
   useEffect(() => {
     setErrMsg('');
@@ -85,11 +90,9 @@ const SignIn = () => {
     setFormFilled(RegistrationNumberFilled && passwordFilled);
   }, [RegistrationNumber, Password]);
 
-
   useEffect(() => {
-    userRef.current.focus()
-  }, [])
-
+    userRef.current.focus();
+  }, []);
 
   return (
     <div className='w-full h-screen bg-faintgreen flex flex-col justify-center items-center'>
@@ -104,9 +107,22 @@ const SignIn = () => {
                 <div className="welcome-line-1 text-green-500 font-semibold text-4xl">
                   SD
                 </div>
-                <div className="welcome-line-2 text-white text-lg mt-3">Welcome</div>
+                <div className="welcome-line-2 text-white text-lg my-3">Welcome</div>
               </div>
-              <div className="mt-10 space-y-5">
+              <section className='w-full text-sm text-white flex flex-row justify-center gap-1 items-center'>
+                <p>Token</p>
+                <section className="switch" 
+                 onClick={ToggleSubmissionItem}
+                 >
+                  <input type="checkbox" 
+                    checked={checkedstate? true:false}
+                    readOnly
+                  />
+                  <span className="slider"></span>
+                </section>
+                <p>Password</p>
+              </section>
+              <div className="mt-5 space-y-5">
                 <div className="form-inp bg-black/70 w-full">
                   <input
                     placeholder="Registration Number"
@@ -122,7 +138,7 @@ const SignIn = () => {
                 </div>
                 <div className="form-inp flex justify-between bg-black/70">
                   <input
-                    placeholder="Password"
+                    placeholder={token? 'Token':'Password'}
                     type={PasswordVisible ? "text" : "password"}
                     value={Password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -154,7 +170,7 @@ const SignIn = () => {
                   </button>
                 )}
               </div>
-              {/* <div>
+               {/* <div>
                 <label htmlFor="persist" className="w-full  flex justify-center mt-3">
                   <input
                     type="checkbox"
