@@ -12,7 +12,7 @@ const Footer = () => {
         Students Decide<sup>&copy;</sup>2023
       </p>
       <Link 
-      to="https://github.com/Ulpha-Deep-Labs/unievotingfrontend"
+      to="https://github.com/kariebi/students-decide"
       className=' p-0.5 flex justify-center items-center rounded-full bg-white/30 hover:text-primaryblue hover:bg-primaryblue/60'>
         <FontAwesomeIcon
           icon={faGithub}
