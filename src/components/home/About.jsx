@@ -9,7 +9,7 @@ const About = () => {
   }, []);
 
   return (
-    <div data-aos="fade-up" className='container mx-auto px-2 mt-8 mb-8 text-black about-container'>
+    <div data-aos="fade-up" className='container mx-auto px-4 mt-8 mb-8 text-black about-container'>
       <h1 className='text-3xl font-semibold w-full text-center mb-4 text-primary'>About Students Decide</h1>
       <p className='mb-4'>
         Welcome to <span className="text-primary">Students Decide</span>, the platform designed to empower students by giving them a voice

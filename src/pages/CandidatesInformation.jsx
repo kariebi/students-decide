@@ -110,7 +110,7 @@ const CandidatesInformation = () => {
           style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: '0', scrollbarColor: 'transparent transparent' }}>
           <div
             onClick={() => handleRoleSelect('All')}
-            className={`px-6 text-white text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary ' : 'bg-primaryblue/80'}`}
+            className={`px-6  text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'text-white bg-primary ' : ' text-black bg-primary/40'}`}
           >
             All
           </div>
@@ -118,7 +118,7 @@ const CandidatesInformation = () => {
             <div
               key={role.name}
               onClick={() => handleRoleSelect(role.name)}
-              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2 text-white ${selectedRole === role.name ? 'bg-primary' : 'bg-primaryblue/80'}`}
+              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer p-2  ${selectedRole === role.name ? 'bg-primary text-white' : 'text-black bg-primary/40'}`}
             >
               {role.name}
             </div>
@@ -147,7 +147,7 @@ const CandidatesInformation = () => {
                         {/* Candidate Card */}
                         <div
                         onClick={() => handleDetailsClick(role.name, candidate)}
-                          className='flex flex-col bg-faintgreen hover:bg-primaryblue/80 text-white  hover:scale-[0.95] transition duration-500 bg-cover bg-center   justify-center text-center p-4 rounded-md relative'
+                          className='flex flex-col bg-faintgreen hover:bg-faintgreen text-white  hover:scale-[0.95] transition duration-500 bg-cover bg-center   justify-center text-center p-4 rounded-md relative'
                           style={{
                             backgroundImage: candidate.image ? `url(${BASE_URL}${candidate.image})` : 'none',
                           }}
@@ -159,7 +159,7 @@ const CandidatesInformation = () => {
                           <p className='z-10'><b>Position:</b> {role.name}</p>
                           <p className='z-10'><b>Total Votes:</b> {candidate.total_votes}</p>
                           <button
-                            className='bg-primary/90 z-10 text-white px-2 py-1 mt-2 rounded-md transition hover:bg-primaryblue'
+                            className='bg-primary/90 z-10 text-white px-2 py-1 mt-2 rounded-md transition hover:bg-faintgreen'
                             onClick={() => handleDetailsClick(role.name, candidate)}
                           >
                             Details
@@ -197,7 +197,7 @@ const CandidatesInformation = () => {
                                 <p className='text-sm'>{selectedCandidate.manifesto}</p>
                               </section>
                               <button
-                                className='bg-primary text-white px-2 py-1 rounded-md mt-2 hover:bg-primaryblue'
+                                className='bg-primary text-white px-2 py-1 rounded-md mt-2 hover:bg-black/90'
                                 onClick={handleCloseDetails}
                               >
                                 Close

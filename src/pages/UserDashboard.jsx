@@ -40,7 +40,7 @@ const UserDashboard = () => {
           </Link>
           <Link
             to='/CandidatesInformation'
-            className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-primaryblue h-full transition duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-2xl'>
+            className='w-[50%] max-w-[240px] mx-4 rounded-2xl bg-faintgreen h-full transition duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-2xl'>
             <div className='w-full h-full p-3 flex flex-col'>
               <aside
                 className='bg-white py-2 px-2 w-fit rounded-xl'
@@ -48,7 +48,7 @@ const UserDashboard = () => {
                 <FontAwesomeIcon
                   icon={faUsers}
                   size="2x"
-                  style={{ color: "#4D6D85" }}
+                  style={{ color: "#6AAD75" }}
                 />
               </aside>
               <p className='font-bold mt-auto text-white'>
@@ -80,7 +80,7 @@ const UserDashboard = () => {
       <div className='w-full px-2 mb-2 h-10 flex justify-center items-center'>
         <Link
           to='/ElectionStatus'
-          className=' bg-primaryblue w-full max-w-[350px] text-center px-9 py-1 rounded-lg text-white transition duration-300 hover:bg-primary hover:text-white'
+          className=' bg-primary w-full max-w-[350px] text-center px-9 py-1 rounded-lg text-white transition duration-300 hover:bg-faintgreen hover:shadow-2xl hover:scale-105 hover:text-white'
         >
           Monitor Election
         </Link>

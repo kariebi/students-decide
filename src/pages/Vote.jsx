@@ -208,7 +208,7 @@ const Vote = () => {
         >
           <div
             onClick={() => handleRoleSelect('All')}
-            className={`px-6 text-center rounded-full text-white cursor-pointer p-2 ${selectedRole === 'All' ? 'bg-primary ' : 'bg-primaryblue/80'
+            className={`px-6 text-center rounded-full cursor-pointer p-2 ${selectedRole === 'All' ? 'text-white bg-primary ' : ' text-black bg-primary/30'
               }`}
           >
             All
@@ -217,7 +217,7 @@ const Vote = () => {
             <div
               key={role.name}
               onClick={() => handleRoleSelect(role.name)}
-              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer text-white p-2  ${selectedRole === role.name ? 'bg-primary ' : 'bg-primaryblue/80'
+              className={`min-w-[100px] flex-shrink-0 text-center rounded-full cursor-pointer  p-2  ${selectedRole === role.name ? 'text-white bg-primary ' : ' text-black bg-primary/30'
                 }`}
             >
               {role.name}
@@ -248,7 +248,7 @@ const Vote = () => {
                         <div
                           className={`
           flex flex-col items-center justify-center text-center p-4 rounded-md hover:scale-[0.95] transition duration-500  relative
-    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-black bg-primaryblue/80' : ' text-white bg-faintgreen/90'}
+    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'text-black bg-primary/80' : ' text-white bg-faintgreen/90'}
         
       `}
                           onClick={() => handleVoteClick(role, candidate)}
@@ -257,12 +257,12 @@ const Vote = () => {
                             <img
                               src={`${BASE_URL}${candidate.image}`}
                               alt={candidate.name}
-                              className={`w-12 h-12 rounded-full  flex justify-center items-center object-cover ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70 text-black/40' : 'bg-primary/50 text-white/50'}
+                              className={`w-12 h-12 rounded-full  flex justify-center items-center object-cover ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primary/70 text-black/40' : 'bg-primary/50 text-white/50'}
                         `}
                             />
                           ) : (
                             <div
-                              className={`w-12 h-12 rounded-full  flex justify-center items-center ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue/70 text-black/40' : 'bg-primary/50 text-white/50'}
+                              className={`w-12 h-12 rounded-full  flex justify-center items-center ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primary/70 text-black/40' : 'bg-primary/50 text-white/50'}
                         `}
                             >
                               <FontAwesomeIcon
@@ -277,7 +277,7 @@ const Vote = () => {
                           <button
                             className={`
      px-2 py-1 mt-2 w-[95%] rounded-md z-10
-    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primaryblue cursor-not-allowed text-black shadow-inner' : ' text-white bg-primary/90 shadow-lg'}
+    ${votedCandidates.some((voted) => voted.role === role.position_id && voted.candidate === candidate) ? 'bg-primary cursor-not-allowed text-black shadow-inner' : ' text-white bg-primary/90 shadow-lg'}
   `}
                             onClick={() => handleVoteClick(role, candidate)}
                             disabled={votedCandidates.some((voted) => role.position_id === voted.role && voted.candidate === candidate)}

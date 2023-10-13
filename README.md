@@ -45,11 +45,13 @@ Welcome to **students decide**, your university's advanced and user-friendly E-V
 
 ---
 
-## Contributors
+## Developed By
 
-<!-- Contributors' Profile Pictures -->
-[<img src="https://github.com/Ulpha-Deep-Labs.png" width="50">](https://github.com/Ulpha-Deep-Labs)
 [<img src="https://github.com/kariebi.png" width="50">](https://github.com/kariebi)
 <!-- Add more contributor images as needed -->
+
+## Co-ordinated By
+
+[<img src="https://github.com/Ulpha-Deep-Labs.png" width="50">](https://github.com/Ulpha-Deep-Labs)
 
 We're excited to bring you **students decide**, the ultimate platform for student participation and engagement. Let your voice be heard, and together, let's shape the future of our university!
