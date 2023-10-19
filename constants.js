@@ -1,1 +1,1 @@
-export const BASE_URL='https://futoevoting.pythonanywhere.com/'
+export const BASE_URL='https://studentsdecides.com.ng'
